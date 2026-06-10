@@ -2008,12 +2008,12 @@ iframe {
   visibility: visible !important;
   opacity: 1 !important;
   z-index: 999999;
-  min-height: 64px;
+  min-height: 58px;
   align-items: center;
-  gap: 11px;
+  gap: 9px;
   border: 1px solid rgba(243, 213, 119, 0.22);
   border-radius: 999px;
-  padding: 7px 18px 7px 8px;
+  padding: 6px 15px 6px 7px;
   color: #fff;
   background:
     radial-gradient(circle at 20% 0%, rgba(212, 175, 55, 0.2), transparent 38%),
@@ -2049,8 +2049,8 @@ iframe {
 .chatbot-toggle-icon {
   position: relative;
   display: grid;
-  width: 46px;
-  height: 46px;
+  width: 42px;
+  height: 42px;
   place-items: center;
   border-radius: 50%;
   background:
@@ -2059,23 +2059,47 @@ iframe {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.52), 0 10px 28px rgba(212, 175, 55, 0.28);
 }
 
+.chatbot-toggle-icon::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 9px;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  clip-path: polygon(50% 0, 61% 38%, 100% 50%, 61% 62%, 50% 100%, 39% 62%, 0 50%, 39% 38%);
+}
+
 .chatbot-toggle-bubble {
   position: absolute;
-  width: 20px;
-  height: 15px;
-  border: 2px solid #fff;
-  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  background: transparent;
+}
+
+.chatbot-toggle-bubble::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  clip-path: polygon(50% 0, 61% 36%, 100% 50%, 61% 64%, 50% 100%, 39% 64%, 0 50%, 39% 36%);
+  filter: drop-shadow(0 2px 5px rgba(92, 66, 5, 0.24));
+  transform: rotate(8deg);
 }
 
 .chatbot-toggle-bubble::after {
   content: "";
   position: absolute;
-  left: 3px;
-  bottom: -5px;
-  width: 6px;
-  height: 6px;
-  border-left: 2px solid #fff;
-  transform: skewY(-38deg);
+  top: 0;
+  right: 0;
+  width: 7px;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.96);
+  clip-path: polygon(50% 0, 61% 38%, 100% 50%, 61% 62%, 50% 100%, 39% 62%, 0 50%, 39% 38%);
 }
 
 .chatbot-toggle-copy {
@@ -2086,23 +2110,23 @@ iframe {
 
 .chatbot-toggle-subtext {
   color: rgba(255, 255, 255, 0.62);
-  font-size: 0.67rem;
+  font-size: 0.63rem;
   font-weight: 650;
   letter-spacing: 0.01em;
 }
 
 .chatbot-toggle-text {
   position: relative;
-  font-size: 0.9rem;
+  font-size: 0.84rem;
   font-weight: 850;
 }
 
 .chatbot-toggle-online {
   position: absolute;
-  top: 7px;
-  left: 43px;
-  width: 11px;
-  height: 11px;
+  top: 6px;
+  left: 39px;
+  width: 10px;
+  height: 10px;
   border: 2px solid #222b3a;
   border-radius: 50%;
   background: #22c875;
@@ -3043,8 +3067,8 @@ textarea:focus-visible {
   }
 
   .chatbot-toggle {
-    min-height: 58px;
-    padding: 6px;
+    min-height: 54px;
+    padding: 5px 12px 5px 6px;
   }
 
   .chatbot-header {
@@ -3086,12 +3110,19 @@ textarea:focus-visible {
   }
 
   .chatbot-toggle-copy {
-    display: none;
+    display: grid;
   }
 
   .chatbot-toggle-icon {
-    width: 46px;
-    height: 46px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .chatbot-toggle-online {
+    top: 5px;
+    left: 36px;
+    width: 9px;
+    height: 9px;
   }
 
   .chatbot-header {
