@@ -563,29 +563,56 @@ const initChatbot = () => {
   chatbot.setAttribute("aria-label", "NIXORA DIGITAL Chatbot");
   chatbot.innerHTML = `
     <button class="chatbot-toggle magnetic" type="button" aria-expanded="false" aria-label="Chat öffnen" data-chat-toggle>
-      <span class="chatbot-toggle-icon" aria-hidden="true"></span>
-      <span class="chatbot-toggle-text">Chat</span>
+      <span class="chatbot-toggle-icon" aria-hidden="true">
+        <span class="chatbot-toggle-bubble"></span>
+      </span>
+      <span class="chatbot-toggle-copy">
+        <span class="chatbot-toggle-text">Chat</span>
+        <span class="chatbot-toggle-subtext">Wir sind online</span>
+      </span>
+      <span class="chatbot-toggle-online" aria-hidden="true"></span>
     </button>
     <div class="chatbot-panel" role="dialog" aria-modal="false" aria-labelledby="chatbot-title" data-chat-panel>
       <div class="chatbot-header">
-        <div>
-          <span>NIXORA DIGITAL</span>
-          <strong id="chatbot-title">Digital Assistant</strong>
+        <div class="chatbot-identity">
+          <span class="chatbot-logo" aria-hidden="true">
+            <svg viewBox="0 0 56 56">
+              <defs>
+                <linearGradient id="nixoraChatLogo" x1="8" x2="48" y1="6" y2="50">
+                  <stop offset="0" stop-color="#1f2937"></stop>
+                  <stop offset="0.52" stop-color="#6b5a2a"></stop>
+                  <stop offset="1" stop-color="#d4af37"></stop>
+                </linearGradient>
+              </defs>
+              <path d="M28 4 49 16v24L28 52 7 40V16L28 4Z" fill="url(#nixoraChatLogo)"></path>
+              <path d="M17 35.5 27.8 16l10.7 19.5" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M18.5 20.5 38.5 35.5" fill="none" stroke="rgba(255,255,255,.72)" stroke-width="4.2" stroke-linecap="round"></path>
+              <circle cx="28" cy="16" r="3.1" fill="#fff"></circle>
+              <circle cx="17" cy="35.5" r="3.1" fill="#fff"></circle>
+              <circle cx="39" cy="35.5" r="3.1" fill="#f3d577"></circle>
+            </svg>
+          </span>
+          <div class="chatbot-identity-copy">
+            <span class="chatbot-brand">NIXORA DIGITAL</span>
+            <strong id="chatbot-title">Digital Assistant</strong>
+          </div>
         </div>
-        <button class="chatbot-close" type="button" aria-label="Chat schließen" data-chat-close></button>
+        <button class="chatbot-close" type="button" aria-label="Chat schließen" data-chat-close>
+          <span aria-hidden="true"></span>
+        </button>
       </div>
       <div class="chatbot-status">
-        <span></span>
-        Online für erste Fragen
+        <span class="chatbot-status-dot" aria-hidden="true"></span>
+        <span class="chatbot-status-text"><strong>Online für erste Fragen</strong><small>Antwortet meist schnell</small></span>
       </div>
       <div class="chatbot-messages" data-chat-messages aria-live="polite">
         <div class="chat-message bot">
-          <p>Hallo, ich bin der digitale Assistent von NIXORA DIGITAL. Wobei darf ich helfen?</p>
+          <p>Guten Tag. Ich bin der digitale Assistent von NIXORA DIGITAL. Wie kann ich Sie unterstützen?</p>
         </div>
       </div>
       <form class="chatbot-form" data-chat-form>
         <label class="sr-only" for="chatbot-input">Nachricht</label>
-        <textarea id="chatbot-input" name="message" rows="1" placeholder="Nachricht schreiben..." autocomplete="off" required data-chat-input></textarea>
+        <textarea id="chatbot-input" name="message" rows="1" placeholder="Ihre Frage an NIXORA..." autocomplete="off" required data-chat-input></textarea>
         <button class="chatbot-send" type="submit" aria-label="Nachricht senden">
           <span></span>
         </button>
