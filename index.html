@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="NIXORA DIGITAL entwickelt Premium-Webseiten, KI-Chatbots, Automatisierungen, CRM-Systeme und E-Mail-Prozesse fuer moderne Unternehmen."
+    />
+    <meta
+      name="keywords"
+      content="NIXORA DIGITAL, digitale Loesungen, Webseiten, KI Chatbots, Automatisierung, CRM, E-Mail Prozesse"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+      if (location.hash) history.replaceState(null, document.title, location.pathname + location.search);
+    </script>
+    <title>NIXORA DIGITAL - Digitale Systeme für moderne Unternehmen</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+  </head>
+  <body>
+    <canvas class="particle-canvas" data-particles aria-hidden="true"></canvas>
+    <svg class="process-stream" viewBox="0 0 1440 3200" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="streamGold" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0" stop-color="rgba(255,255,255,.1)" />
+          <stop offset=".45" stop-color="#d4af37" />
+          <stop offset="1" stop-color="rgba(255,255,255,.65)" />
+        </linearGradient>
+      </defs>
+      <path id="streamA" class="stream-path stream-a" d="M60 180 C280 320 250 520 520 620 C880 754 760 980 1130 1080 C1430 1160 1280 1450 1010 1530 C610 1650 680 1910 1010 2030 C1310 2140 1260 2470 880 2600 C520 2724 430 2910 650 3090" />
+      <path id="streamB" class="stream-path stream-b" d="M1320 120 C1060 320 1120 540 840 690 C510 870 570 1120 260 1240 C30 1330 90 1680 410 1810 C780 1960 650 2280 360 2440 C190 2536 190 2820 430 3040" />
+      <path id="streamC" class="stream-path stream-c" d="M720 80 C930 330 760 540 990 760 C1220 980 1040 1250 710 1390 C310 1560 350 1840 720 2010 C1040 2158 1110 2420 820 2630 C610 2782 610 2960 900 3160" />
+      <path id="streamD" class="stream-path stream-d" d="M-80 420 C210 520 330 770 650 820 C1010 876 1180 1040 1500 980" />
+      <path id="streamE" class="stream-path stream-e" d="M1480 1880 C1160 1800 1080 1640 800 1705 C430 1792 306 1590 -80 1510" />
+      <path id="streamF" class="stream-path stream-f" d="M-120 1180 C250 1110 450 1218 740 1178 C1030 1138 1190 1190 1540 1120" />
+      <path id="streamG" class="stream-path stream-g" d="M1540 2260 C1180 2190 960 2330 710 2265 C420 2190 230 2270 -110 2210" />
+      <path id="streamH" class="stream-path stream-h" d="M-100 2860 C240 2750 475 2890 720 2810 C1010 2715 1220 2850 1540 2760" />
+      <circle class="stream-dot stream-dot-gold" r="5">
+        <animateMotion dur="15s" repeatCount="indefinite">
+          <mpath href="#streamA" />
+        </animateMotion>
+      </circle>
+      <circle class="stream-dot stream-dot-white" r="4">
+        <animateMotion dur="18s" repeatCount="indefinite" begin="-6s">
+          <mpath href="#streamB" />
+        </animateMotion>
+      </circle>
+      <circle class="stream-dot stream-dot-gold" r="4.5">
+        <animateMotion dur="22s" repeatCount="indefinite" begin="-11s">
+          <mpath href="#streamC" />
+        </animateMotion>
+      </circle>
+      <circle class="stream-dot stream-dot-soft" r="3.5">
+        <animateMotion dur="12s" repeatCount="indefinite" begin="-3s">
+          <mpath href="#streamD" />
+        </animateMotion>
+      </circle>
+      <circle class="stream-dot stream-dot-white" r="3.8">
+        <animateMotion dur="16s" repeatCount="indefinite" begin="-9s">
+          <mpath href="#streamE" />
+        </animateMotion>
+      </circle>
+      <circle class="stream-dot stream-dot-gold" r="3.4">
+        <animateMotion dur="19s" repeatCount="indefinite" begin="-4s">
+          <mpath href="#streamF" />
+        </animateMotion>
+      </circle>
+      <circle class="stream-dot stream-dot-soft" r="3.2">
+        <animateMotion dur="20s" repeatCount="indefinite" begin="-12s">
+          <mpath href="#streamG" />
+        </animateMotion>
+      </circle>
+      <circle class="stream-dot stream-dot-white" r="3">
+        <animateMotion dur="24s" repeatCount="indefinite" begin="-8s">
+          <mpath href="#streamH" />
+        </animateMotion>
+      </circle>
+    </svg>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="#start" aria-label="NIXORA DIGITAL Startseite">
+        <svg class="logo-mark" viewBox="0 0 56 56" aria-hidden="true">
+          <defs>
+            <linearGradient id="nixoraLogo" x1="8" x2="48" y1="6" y2="50">
+              <stop offset="0" stop-color="#1f2937" />
+              <stop offset="0.52" stop-color="#6b5a2a" />
+              <stop offset="1" stop-color="#d4af37" />
+            </linearGradient>
+          </defs>
+          <path d="M28 4 49 16v24L28 52 7 40V16L28 4Z" fill="url(#nixoraLogo)" />
+          <path d="M17 35.5 27.8 16l10.7 19.5" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M18.5 20.5 38.5 35.5" fill="none" stroke="rgba(255,255,255,.72)" stroke-width="4.2" stroke-linecap="round" />
+          <circle cx="28" cy="16" r="3.1" fill="#fff" />
+          <circle cx="17" cy="35.5" r="3.1" fill="#fff" />
+          <circle cx="39" cy="35.5" r="3.1" fill="#f3d577" />
+        </svg>
+        <span class="brand-name">NIXORA <span>DIGITAL</span></span>
+      </a>
+
+      <button class="nav-toggle magnetic" type="button" aria-label="Navigation öffnen" aria-expanded="false" data-nav-toggle>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" aria-label="Hauptnavigation" data-nav>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#warum">Warum wir</a>
+        <a href="#ueber-uns">Über uns</a>
+        <a href="#ablauf">Ablauf</a>
+        <a href="#referenzen">Referenzen</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+
+      <a class="nav-cta magnetic" href="#kontakt">Kostenlose Beratung</a>
+    </header>
+
+    <main>
+      <section class="hero" id="start" aria-labelledby="hero-title">
+        <div class="hero-aura aura-blue" aria-hidden="true"></div>
+        <div class="hero-aura aura-gold" aria-hidden="true"></div>
+
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">NIXORA DIGITAL</p>
+            <h1 id="hero-title">
+              <span>Digitalisierung,</span>
+              <span>die messbare Ergebnisse liefert.</span>
+            </h1>
+            <p class="hero-subtitle">
+              Wir entwickeln und koordinieren moderne Systeme aus Webseiten, KI-Chatbots, Automatisierungen,
+              CRM-Strukturen und E-Mail-Prozessen - klar, hochwertig und wachstumsorientiert.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary magnetic" href="#kontakt">Kostenlose Beratung</a>
+              <a class="btn btn-secondary magnetic" href="#leistungen">System ansehen</a>
+            </div>
+            <div class="trust-strip" aria-label="Vertrauensmerkmale">
+              <span>Strategie</span>
+              <span>Umsetzung</span>
+              <span>Koordination</span>
+              <span>Optimierung</span>
+            </div>
+          </div>
+
+          <div class="hero-system reveal" data-parallax aria-label="Verbundenes digitales System">
+            <svg class="system-lines" viewBox="0 0 680 560" aria-hidden="true">
+              <defs>
+                <linearGradient id="systemLine" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#FFFFFF" />
+                  <stop offset="0.58" stop-color="#D4AF37" />
+                  <stop offset="1" stop-color="#1F2937" />
+                </linearGradient>
+              </defs>
+              <path id="heroPath1" class="flow-line l1" d="M104 126 C210 74 266 165 340 141 C450 104 495 150 580 104" />
+              <path id="heroPath2" class="flow-line l2" d="M92 296 C182 230 252 268 336 304 C452 354 472 318 594 382" />
+              <path id="heroPath3" class="flow-line l3" d="M154 436 C228 358 326 404 402 304 C472 214 514 230 612 204" />
+              <path id="heroPath4" class="flow-line l4" d="M132 128 C170 206 178 306 252 364 C338 430 440 438 556 468" />
+              <path id="heroPath5" class="flow-line l5" d="M336 142 C290 220 292 288 340 304 C420 330 430 400 404 472" />
+              <circle class="signal-dot dot-gold" r="4">
+                <animateMotion dur="5.8s" repeatCount="indefinite">
+                  <mpath href="#heroPath1" />
+                </animateMotion>
+              </circle>
+              <circle class="signal-dot dot-white" r="3.5">
+                <animateMotion dur="7.4s" repeatCount="indefinite" begin="-2s">
+                  <mpath href="#heroPath2" />
+                </animateMotion>
+              </circle>
+              <circle class="signal-dot dot-blue" r="3.2">
+                <animateMotion dur="6.8s" repeatCount="indefinite" begin="-3s">
+                  <mpath href="#heroPath4" />
+                </animateMotion>
+              </circle>
+            </svg>
+
+            <div class="system-core">
+              <span class="core-pulse"></span>
+              <span class="core-orbit orbit-one"></span>
+              <span class="core-orbit orbit-two"></span>
+              <div class="core-label">
+                <span>NIXORA DIGITAL</span>
+                <strong>Premium Growth System</strong>
+              </div>
+            </div>
+
+            <article class="system-node node-web" style="--x: 10%; --y: 12%; --delay: 0s">
+              <span>01</span>
+              <strong>Webseiten</strong>
+            </article>
+            <article class="system-node node-chat" style="--x: 67%; --y: 8%; --delay: .35s">
+              <span>02</span>
+              <strong>KI-Chatbots</strong>
+            </article>
+            <article class="system-node node-auto" style="--x: 5%; --y: 54%; --delay: .7s">
+              <span>03</span>
+              <strong>Automatisierungen</strong>
+            </article>
+            <article class="system-node node-crm" style="--x: 38%; --y: 76%; --delay: 1.05s">
+              <span>04</span>
+              <strong>CRM-Systeme</strong>
+            </article>
+            <article class="system-node node-mail" style="--x: 66%; --y: 60%; --delay: 1.4s">
+              <span>05</span>
+              <strong>E-Mail-Systeme</strong>
+            </article>
+            <article class="system-node node-strategy" style="--x: 40%; --y: 22%; --delay: 1.75s">
+              <span>06</span>
+              <strong>Strategie</strong>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section services-section" id="leistungen" aria-labelledby="services-title">
+        <div class="section-dataflow services-flow" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Leistungen</p>
+            <h2 id="services-title">Ein digitales Fundament, das nicht nur gut aussieht.</h2>
+            <p>Wir verbinden Design, Technik und Prozesse so, dass aus einzelnen Tools ein klares System entsteht.</p>
+          </div>
+
+          <div class="service-grid">
+            <article class="service-card reveal">
+              <span class="service-icon icon-web" aria-hidden="true"></span>
+              <h3>Webseiten</h3>
+              <p>Premium-Webseiten mit Fokus auf Vertrauen, Sichtbarkeit und hochwertige Anfragen.</p>
+            </article>
+            <article class="service-card reveal">
+              <span class="service-icon icon-auto" aria-hidden="true"></span>
+              <h3>Automatisierungen</h3>
+              <p>Wiederkehrende Aufgaben verbinden, vereinfachen und messbar Zeit sparen.</p>
+            </article>
+            <article class="service-card reveal">
+              <span class="service-icon icon-ai" aria-hidden="true"></span>
+              <h3>KI-Chatbots</h3>
+              <p>Digitale Assistenten für Support, Leadgenerierung und intelligente Kundenkommunikation.</p>
+            </article>
+            <article class="service-card reveal">
+              <span class="service-icon icon-crm" aria-hidden="true"></span>
+              <h3>CRM-Systeme</h3>
+              <p>Strukturierte Pipelines, saubere Kundendaten und klare nächste Schritte.</p>
+            </article>
+            <article class="service-card reveal">
+              <span class="service-icon icon-mail" aria-hidden="true"></span>
+              <h3>E-Mail-Prozesse</h3>
+              <p>Automatische Kontaktprozesse, Follow-ups und intelligente Benachrichtigungen.</p>
+            </article>
+            <article class="service-card reveal">
+              <span class="service-icon icon-consult" aria-hidden="true"></span>
+              <h3>Digitale Beratung</h3>
+              <p>Klarheit darüber, welche digitale Lösung wirklich Wirkung entfaltet.</p>
+            </article>
+            <article class="service-card service-wide reveal">
+              <span class="service-icon icon-project" aria-hidden="true"></span>
+              <h3>Projektvermittlung</h3>
+              <p>Wir koordinieren passende Experten und halten Strategie, Qualität und Ergebnis zusammen.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section metrics-section" id="warum" aria-labelledby="why-title">
+        <div class="container">
+          <div class="section-heading center reveal">
+            <p class="eyebrow">Warum wir</p>
+            <h2 id="why-title">Ruhige Exzellenz. Klare Wirkung.</h2>
+          </div>
+
+          <div class="metric-grid">
+            <article class="metric-card reveal">
+              <strong><span data-count="95">0</span>%</strong>
+              <p>Kunden empfehlen uns weiter</p>
+            </article>
+            <article class="metric-card reveal">
+              <strong><span data-count="24">0</span>h</strong>
+              <p>Antwortzeit</p>
+            </article>
+            <article class="metric-card reveal">
+              <strong><span data-count="100">0</span>%</strong>
+              <p>Individuelle Lösungen</p>
+            </article>
+            <article class="metric-card reveal">
+              <strong>∞</strong>
+              <p>Digitale Möglichkeiten</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section about-section" id="ueber-uns" aria-labelledby="about-title">
+        <div class="container about-grid">
+          <div class="about-visual reveal" aria-hidden="true">
+            <div class="mockup-shell">
+              <div class="mockup-top">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <svg class="mockup-lines" viewBox="0 0 420 300">
+                <path id="mockPath1" d="M64 98 C138 44 248 52 334 96" />
+                <path id="mockPath2" d="M78 172 C155 214 250 212 340 166" />
+                <path id="mockPath3" d="M106 238 C165 162 250 162 314 238" />
+                <circle r="4" class="mock-dot">
+                  <animateMotion dur="6s" repeatCount="indefinite">
+                    <mpath href="#mockPath1" />
+                  </animateMotion>
+                </circle>
+                <circle r="3.5" class="mock-dot dot-delay">
+                  <animateMotion dur="7s" repeatCount="indefinite" begin="-2s">
+                    <mpath href="#mockPath2" />
+                  </animateMotion>
+                </circle>
+              </svg>
+              <div class="dashboard-title">
+                <small>NIXORA DIGITAL</small>
+                <strong>Growth System</strong>
+              </div>
+              <div class="module-card m-web">
+                <span>Webseiten</span>
+                <strong>+42% Anfragen</strong>
+              </div>
+              <div class="module-card m-auto">
+                <span>Automatisierungen</span>
+                <strong>24 Prozesse</strong>
+              </div>
+              <div class="module-card m-ai">
+                <span>KI-Chatbots</span>
+                <strong>1 Ansprechpartner</strong>
+              </div>
+              <div class="module-card m-crm">
+                <span>CRM</span>
+                <strong>3 Systeme</strong>
+              </div>
+              <div class="module-card m-mail">
+                <span>E-Mail-Prozesse</span>
+                <strong>Follow-ups</strong>
+              </div>
+            </div>
+            <span class="about-ring"></span>
+            <span class="about-ring ring-two"></span>
+            <span class="about-point p1"></span>
+            <span class="about-point p2"></span>
+            <span class="about-point p3"></span>
+          </div>
+          <div class="about-content reveal">
+            <p class="eyebrow">Über uns</p>
+            <h2 id="about-title">Sie kümmern sich um Ihr Unternehmen. Wir kümmern uns um die Digitalisierung.</h2>
+            <p>
+              NIXORA DIGITAL denkt Digitalisierung nicht als Sammlung einzelner Tools, sondern als präzises System.
+              Wir analysieren, priorisieren und koordinieren die Umsetzung mit einem hohen Anspruch an Design,
+              Verlässlichkeit und messbaren Nutzen.
+            </p>
+            <div class="signature-row">
+              <span>Minimalistisch</span>
+              <span>Strategisch</span>
+              <span>Verlässlich</span>
+              <span>Umsetzungsstark</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section timeline-section" id="ablauf" aria-labelledby="timeline-title">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Ablauf</p>
+            <h2 id="timeline-title">Vom ersten Gespräch zum digitalen System.</h2>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-item reveal">
+              <span class="timeline-index">1</span>
+              <div>
+                <h3>Analyse</h3>
+                <p>Wir verstehen Ziele, Reibungspunkte und Chancen in Ihrem aktuellen Setup.</p>
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <span class="timeline-index">2</span>
+              <div>
+                <h3>Strategie</h3>
+                <p>Wir definieren die sinnvollste Lösung, klare Prioritäten und ein realistisches Vorgehen.</p>
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <span class="timeline-index">3</span>
+              <div>
+                <h3>Umsetzung</h3>
+                <p>Design, Entwicklung, Automationen und Integrationen werden koordiniert realisiert.</p>
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <span class="timeline-index">4</span>
+              <div>
+                <h3>Optimierung</h3>
+                <p>Nach dem Start verbessern wir Abläufe, Übergaben und Ergebnisse kontinuierlich.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section references-section" id="referenzen" aria-labelledby="references-title">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Referenzen</p>
+            <h2 id="references-title">Case Studies, die Vertrauen sichtbar machen.</h2>
+          </div>
+
+          <div class="case-grid">
+            <article class="case-card reveal">
+              <span>Growth Website</span>
+              <h3>Beratungsunternehmen</h3>
+              <p>Premium-Auftritt mit klarer Angebotsstruktur und stärkerem Anfragefokus.</p>
+              <strong>+42% qualifizierte Anfragen</strong>
+            </article>
+            <article class="case-card reveal">
+              <span>AI Support Flow</span>
+              <h3>Dienstleistung</h3>
+              <p>KI-Chatbot mit Leadrouting, FAQ-Antworten und interner Übergabe.</p>
+              <strong>24/7 Erstkontakt</strong>
+            </article>
+            <article class="case-card reveal">
+              <span>CRM Automation</span>
+              <h3>B2B Vertrieb</h3>
+              <p>Automatisierte Follow-ups, CRM-Struktur und saubere E-Mail-Prozesse.</p>
+              <strong>8h weniger Handarbeit pro Woche</strong>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact-section" id="kontakt" aria-labelledby="contact-title">
+        <div class="container contact-grid">
+          <div class="contact-copy reveal">
+            <p class="eyebrow">Kontakt</p>
+            <h2 id="contact-title">Lassen Sie uns herausfinden, welches System Ihr Unternehmen nach vorne bringt.</h2>
+            <p>Schreiben Sie uns kurz, worum es geht. Wir melden uns mit einer klaren ersten Einschätzung.</p>
+
+            <div class="contact-options">
+              <a class="contact-option magnetic" href="mailto:nixoradigital10@gmail.com">E-Mail</a>
+              <a class="contact-option magnetic" href="https://wa.me/491700000000" target="_blank" rel="noreferrer">WhatsApp</a>
+              <a class="contact-option magnetic" href="#kontakt">Termin buchen</a>
+            </div>
+          </div>
+
+          <form class="contact-form reveal" data-form novalidate>
+            <input type="hidden" name="to_email" value="nixoradigital10@gmail.com" />
+            <input type="hidden" name="from_email" value="nixoradigital10@gmail.com" />
+            <input type="hidden" name="reply_to" value="nixoradigital10@gmail.com" />
+            <input type="hidden" name="_subject" value="Neue Anfrage über NIXORA DIGITAL" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input
+              type="hidden"
+              name="_autoresponse"
+              value="Vielen Dank für Ihre Anfrage bei NIXORA DIGITAL. Wir haben Ihre Nachricht erhalten und melden uns zeitnah mit einer ersten Einschätzung."
+            />
+            <div class="form-row">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required minlength="2" />
+              <small>Bitte geben Sie Ihren Namen ein.</small>
+            </div>
+            <div class="form-row">
+              <label for="email">E-Mail</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+              <small>Bitte geben Sie eine gültige E-Mail ein.</small>
+            </div>
+            <div class="form-row">
+              <label for="company">Unternehmen</label>
+              <input id="company" name="company" type="text" autocomplete="organization" />
+            </div>
+            <div class="form-row">
+              <label for="service">Gewünschte Leistung</label>
+              <select id="service" name="service" required>
+                <option value="">Bitte auswählen</option>
+                <option>Webseiten</option>
+                <option>Automatisierungen</option>
+                <option>KI-Chatbots</option>
+                <option>CRM-Systeme</option>
+                <option>E-Mail-Prozesse</option>
+                <option>Digitale Beratung</option>
+                <option>Projektvermittlung</option>
+              </select>
+              <small>Bitte wählen Sie eine Leistung aus.</small>
+            </div>
+            <div class="form-row form-row-full">
+              <label for="message">Nachricht</label>
+              <textarea id="message" name="message" rows="5" required minlength="12"></textarea>
+              <small>Bitte beschreiben Sie Ihr Projekt kurz.</small>
+            </div>
+            <button class="btn btn-primary form-button magnetic" type="submit">
+              <span>Anfrage senden</span>
+            </button>
+            <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <span>NIXORA DIGITAL</span>
+          <small>Digitale Systeme mit Premium-Anspruch.</small>
+        </div>
+        <nav class="footer-links" aria-label="Rechtliche Links">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+          <a href="agb.html">AGB</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+      </div>
+    </footer>
+
+    <div class="chatbot-host" data-chatbot-host aria-live="polite"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
