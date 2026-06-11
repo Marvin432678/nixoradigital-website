@@ -752,6 +752,324 @@ const initChatbot = () => {
 
 initChatbot();
 
+const SERVICE_MODAL_DATA = {
+  websites: {
+    eyebrow: "Webseiten",
+    title: "Digitale Auftritte, die Vertrauen in Anfragen verwandeln.",
+    intro: "Vier beispielhafte Website-Konzepte für Unternehmen mit unterschiedlichen Zielen und Zielgruppen.",
+    type: "website",
+    items: [
+      {
+        title: "Heizungsfirma Hamburg",
+        image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=82",
+        alt: "Professioneller Handwerker bei der Arbeit",
+        features: ["Modernes Unternehmensdesign", "Notdienst-Bereich", "Kontaktformular", "Google Bewertungen", "Terminbuchung"],
+        result: "Ein klarer Service-Auftritt, der dringende Anfragen schnell zum richtigen Ansprechpartner führt."
+      },
+      {
+        title: "Immobilienmakler",
+        image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=82",
+        alt: "Luxuriöse moderne Immobilie",
+        features: ["Luxus-Immobilien", "Objektübersicht", "Exposé-Anfrage", "Hochwertige Bilder"],
+        result: "Eine elegante Objektpräsentation, die hochwertige Immobilien erlebbar macht und qualifizierte Anfragen erzeugt."
+      },
+      {
+        title: "Dachdeckerbetrieb",
+        image: "https://images.unsplash.com/photo-1632759145351-1d592919f522?auto=format&fit=crop&w=1400&q=82",
+        alt: "Dachdecker bei professionellen Arbeiten auf einem Dach",
+        features: ["Referenzen", "Vorher/Nachher Projekte", "Angebotsanfrage", "Mobile Optimierung"],
+        result: "Referenzstarke Darstellung mit kurzen Wegen zur Angebotsanfrage auf jedem Endgerät."
+      },
+      {
+        title: "Fitnessstudio",
+        image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1400&q=82",
+        alt: "Modern ausgestattetes Fitnessstudio",
+        features: ["Kursübersicht", "Mitgliedschaft", "Trainerprofil", "Online-Anmeldung"],
+        result: "Ein dynamischer Markenauftritt, der Kurse, Trainer und Mitgliedschaften übersichtlich verbindet."
+      }
+    ]
+  },
+  chatbots: {
+    eyebrow: "KI-Chatbots",
+    title: "Digitale Assistenten für schnelle Antworten und bessere Leads.",
+    intro: "Beispielhafte Dialoge zeigen, wie Interessenten rund um die Uhr qualifiziert und weitergeführt werden.",
+    type: "chatbot",
+    items: [
+      {
+        title: "Heizungsfirma",
+        features: ["Terminvereinbarung", "Notdienst-Anfragen"],
+        conversation: [
+          ["user", "Unsere Heizung ist ausgefallen. Können Sie helfen?"],
+          ["bot", "Ja. Ist die Anlage vollständig ausgefallen und in welchem Stadtteil befinden Sie sich?"],
+          ["user", "Komplett ausgefallen, Hamburg-Nord."],
+          ["bot", "Danke. Ich erfasse Ihre Kontaktdaten für eine schnelle Rückmeldung des Notdienstes."]
+        ],
+        lead: "Name · Telefon · Standort · Dringlichkeit"
+      },
+      {
+        title: "Immobilienmakler",
+        features: ["Objektanfragen", "Besichtigungstermine"],
+        conversation: [
+          ["user", "Ist die Stadtvilla noch verfügbar?"],
+          ["bot", "Ja. Möchten Sie das Exposé erhalten oder direkt Interesse an einer Besichtigung vormerken?"],
+          ["user", "Bitte das Exposé."],
+          ["bot", "Gern. An welche E-Mail-Adresse darf es gesendet werden?"]
+        ],
+        lead: "Objekt · E-Mail · Budget · Terminwunsch"
+      },
+      {
+        title: "Fitnessstudio",
+        features: ["Mitgliedschaftsanfragen", "Kursinformationen"],
+        conversation: [
+          ["user", "Welche Kurse gibt es am Abend?"],
+          ["bot", "Montags bis donnerstags stehen unter anderem Functional Training, Yoga und Cycling zur Auswahl."],
+          ["user", "Kann ich ein Probetraining machen?"],
+          ["bot", "Ja. Ich nehme Ihren bevorzugten Tag und Ihre Kontaktdaten auf."]
+        ],
+        lead: "Interesse · Trainingsziel · Wunschtermin"
+      },
+      {
+        title: "Handwerksbetrieb",
+        features: ["Angebotsanfragen", "Kundenservice"],
+        conversation: [
+          ["user", "Ich benötige ein Angebot für neue Fenster."],
+          ["bot", "Wie viele Fenster sollen erneuert werden und handelt es sich um Neubau oder Sanierung?"],
+          ["user", "Acht Fenster, Sanierung."],
+          ["bot", "Perfekt. Ich strukturiere Ihre Anfrage für eine persönliche Angebotserstellung."]
+        ],
+        lead: "Leistung · Umfang · Projektart · Kontaktdaten"
+      }
+    ]
+  },
+  automations: {
+    eyebrow: "Automatisierungen",
+    title: "Prozesse, die Informationen automatisch an den richtigen Ort bringen.",
+    intro: "Vier Workflow-Beispiele für weniger Handarbeit, schnellere Reaktionen und klare Übergaben.",
+    type: "workflow",
+    items: [
+      {
+        title: "Kontaktformular bis Termin",
+        steps: ["Kontaktformular", "CRM", "E-Mail", "Termin"],
+        result: "Neue Anfragen werden erfasst, zugeordnet, bestätigt und direkt zur Terminwahl weitergeführt."
+      },
+      {
+        title: "Facebook Lead bis Angebot",
+        steps: ["Facebook Lead", "CRM", "WhatsApp", "Angebot"],
+        result: "Interessenten aus Kampagnen erhalten ohne Verzögerung eine persönliche Folgekommunikation."
+      },
+      {
+        title: "KI-qualifizierte Website-Anfrage",
+        steps: ["Website-Anfrage", "KI-Qualifizierung", "Priorisierung", "Kalender"],
+        result: "Die wichtigsten Projektdaten stehen vor dem Erstgespräch bereits strukturiert zur Verfügung."
+      },
+      {
+        title: "Automatisierter Rechnungsprozess",
+        steps: ["Rechnung", "Fälligkeit prüfen", "Erinnerung", "Zahlung"],
+        result: "Offene Rechnungen werden überwacht und Kunden zum passenden Zeitpunkt freundlich erinnert."
+      }
+    ]
+  },
+  crm: {
+    eyebrow: "CRM-Systeme",
+    title: "Alle Kunden, Aufgaben und Chancen in einer klaren Oberfläche.",
+    intro: "Vier Dashboard-Konzepte zeigen, wie operative Daten übersichtlich und handlungsorientiert dargestellt werden.",
+    type: "crm",
+    items: [
+      { title: "Heizungsfirma", areas: ["Kundenverwaltung", "Aufträge", "Termine"], kpis: [["Aktive Aufträge", "24"], ["Heute", "8 Termine"], ["Auslastung", "86%"]], bars: [62, 78, 48, 88, 72] },
+      { title: "Immobilienmakler", areas: ["Leads", "Objekte", "Besichtigungen"], kpis: [["Neue Leads", "38"], ["Objekte", "16 aktiv"], ["Besichtigungen", "12"]], bars: [44, 68, 82, 58, 92] },
+      { title: "Fitnessstudio", areas: ["Mitglieder", "Verträge", "Zahlungen"], kpis: [["Mitglieder", "1.248"], ["Verträge", "96% aktiv"], ["Monatsumsatz", "+12%"]], bars: [56, 64, 72, 78, 90] },
+      { title: "B2B Vertrieb", areas: ["Pipeline", "Umsatzübersicht", "Follow-Ups"], kpis: [["Pipeline", "€ 184k"], ["Abschlussrate", "31%"], ["Follow-Ups", "18 offen"]], bars: [38, 52, 70, 84, 76] }
+    ]
+  }
+};
+
+const initServiceModals = () => {
+  const triggers = document.querySelectorAll("[data-service-modal]");
+  if (!triggers.length) return;
+
+  const modal = document.createElement("section");
+  modal.className = "service-modal";
+  modal.setAttribute("aria-hidden", "true");
+  modal.innerHTML = `
+    <div class="service-modal-backdrop" data-service-modal-close></div>
+    <div class="service-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="service-modal-title">
+      <header class="service-modal-header">
+        <div>
+          <span class="service-modal-eyebrow" data-service-modal-eyebrow></span>
+          <h2 id="service-modal-title" data-service-modal-title></h2>
+          <p data-service-modal-intro></p>
+        </div>
+        <button class="service-modal-close" type="button" aria-label="Ansicht schließen" data-service-modal-close></button>
+      </header>
+      <div class="service-modal-content" data-service-modal-content></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  const dialog = modal.querySelector(".service-modal-dialog");
+  const content = modal.querySelector("[data-service-modal-content]");
+  const closeButton = modal.querySelector(".service-modal-close");
+  let activeTrigger = null;
+
+  const featureList = (features) => `<ul>${features.map((feature) => `<li>${feature}</li>`).join("")}</ul>`;
+
+  const renderWebsite = (item) => `
+    <article class="service-example website-example">
+      <div class="website-mockups">
+        <div class="desktop-mockup">
+          <div class="mockup-browser"><i></i><i></i><i></i><span>${item.title}</span></div>
+          <img src="${item.image}" alt="${item.alt}" loading="lazy" decoding="async" />
+          <div class="mockup-overlay"><span>Premium Website</span><strong>${item.title}</strong></div>
+        </div>
+        <div class="phone-mockup">
+          <span></span>
+          <img src="${item.image}" alt="" loading="lazy" decoding="async" />
+        </div>
+      </div>
+      <div class="service-example-copy">
+        <span class="service-example-index">Website-Konzept</span>
+        <h3>${item.title}</h3>
+        ${featureList(item.features)}
+        <p>${item.result}</p>
+      </div>
+    </article>
+  `;
+
+  const renderChatbot = (item) => `
+    <article class="service-example chatbot-example">
+      <div class="example-chat-window">
+        <header><span class="example-chat-avatar">AI</span><div><strong>${item.title} Assistant</strong><small>Automatische Kundenkommunikation</small></div><i></i></header>
+        <div class="example-chat-messages">
+          ${item.conversation.map(([role, text]) => `<p class="${role}">${text}</p>`).join("")}
+        </div>
+        <div class="example-lead"><span>Lead erfasst</span><strong>${item.lead}</strong></div>
+      </div>
+      <div class="service-example-copy">
+        <span class="service-example-index">Chatbot-Anwendung</span>
+        <h3>${item.title}</h3>
+        ${featureList(item.features)}
+        <p>Automatische Antworten führen die Anfrage strukturiert bis zur qualifizierten Übergabe.</p>
+      </div>
+    </article>
+  `;
+
+  const renderWorkflow = (item) => `
+    <article class="service-example workflow-example">
+      <div class="workflow-canvas">
+        ${item.steps
+          .map(
+            (step, index) => `
+              <div class="workflow-step">
+                <span>${String(index + 1).padStart(2, "0")}</span>
+                <strong>${step}</strong>
+              </div>
+              ${index < item.steps.length - 1 ? '<div class="workflow-link"><i></i></div>' : ""}
+            `
+          )
+          .join("")}
+      </div>
+      <div class="service-example-copy">
+        <span class="service-example-index">Workflow</span>
+        <h3>${item.title}</h3>
+        <p>${item.result}</p>
+      </div>
+    </article>
+  `;
+
+  const renderCrm = (item) => `
+    <article class="service-example crm-example">
+      <div class="crm-dashboard">
+        <header><div><span>NIXORA CRM</span><strong>${item.title}</strong></div><i></i></header>
+        <div class="crm-kpis">
+          ${item.kpis.map(([label, value]) => `<div><span>${label}</span><strong>${value}</strong></div>`).join("")}
+        </div>
+        <div class="crm-main">
+          <div class="crm-chart">
+            <span>Entwicklung</span>
+            <div class="crm-bars">${item.bars.map((bar) => `<i style="--bar:${bar}%"></i>`).join("")}</div>
+          </div>
+          <div class="crm-pipeline">
+            ${item.areas.map((area, index) => `<div><i></i><span>${area}</span><strong>${index + 4}</strong></div>`).join("")}
+          </div>
+        </div>
+      </div>
+      <div class="service-example-copy">
+        <span class="service-example-index">Dashboard-Konzept</span>
+        <h3>${item.title}</h3>
+        ${featureList(item.areas)}
+        <p>Kennzahlen, Aufgaben und nächste Schritte werden in einer zentralen Ansicht zusammengeführt.</p>
+      </div>
+    </article>
+  `;
+
+  const renderModal = (key) => {
+    const data = SERVICE_MODAL_DATA[key];
+    if (!data) return;
+    modal.querySelector("[data-service-modal-eyebrow]").textContent = data.eyebrow;
+    modal.querySelector("[data-service-modal-title]").textContent = data.title;
+    modal.querySelector("[data-service-modal-intro]").textContent = data.intro;
+
+    const renderer = {
+      website: renderWebsite,
+      chatbot: renderChatbot,
+      workflow: renderWorkflow,
+      crm: renderCrm
+    }[data.type];
+
+    content.className = `service-modal-content ${data.type}-modal-content`;
+    content.innerHTML = data.items.map(renderer).join("");
+  };
+
+  const closeModal = () => {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("service-modal-open");
+    activeTrigger?.focus();
+  };
+
+  const openModal = (trigger) => {
+    activeTrigger = trigger;
+    renderModal(trigger.dataset.serviceModal);
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("service-modal-open");
+    dialog.scrollTop = 0;
+    closeButton.focus();
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => openModal(trigger));
+    trigger.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      openModal(trigger);
+    });
+  });
+
+  modal.querySelectorAll("[data-service-modal-close]").forEach((button) => button.addEventListener("click", closeModal));
+  document.addEventListener("keydown", (event) => {
+    if (!modal.classList.contains("is-open")) return;
+    if (event.key === "Escape") closeModal();
+    if (event.key !== "Tab") return;
+
+    const focusable = [...dialog.querySelectorAll("button, a, input, select, textarea, [tabindex]:not([tabindex='-1'])")].filter(
+      (element) => !element.disabled
+    );
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+};
+
+initServiceModals();
+
 const initReviews = () => {
   const reviewForm = document.querySelector("[data-review-form]");
   const reviewList = document.querySelector("[data-review-list]");
