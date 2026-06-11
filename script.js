@@ -28,6 +28,8 @@ const formStatus = document.querySelector("[data-form-status]");
 const particleCanvas = document.querySelector("[data-particles]");
 const processStream = document.querySelector(".process-stream");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const supportsFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+const isMobileViewport = window.matchMedia("(max-width: 820px)").matches;
 let lastStreamImpulse = 0;
 const COOKIE_STORAGE_KEY = "nixora_cookie_choice";
 const CHAT_SESSION_KEY = "nixora_chat_session";
@@ -53,6 +55,11 @@ const enforceChatbotRules = (reply) =>
   FORBIDDEN_SCHEDULING_REPLY_PATTERN.test(reply) || FORBIDDEN_TIME_COMMITMENT_PATTERN.test(reply)
     ? CONTACT_FORM_REPLY
     : reply;
+
+if (isMobileViewport || prefersReducedMotion) {
+  document.querySelector(".process-stream")?.pauseAnimations?.();
+  document.querySelector(".system-lines")?.pauseAnimations?.();
+}
 
 if ("scrollRestoration" in window.history) {
   window.history.scrollRestoration = "manual";
@@ -90,8 +97,38 @@ const hasEmailJsConfig = () =>
       EMAILJS_CONFIG.confirmationTemplateId
   );
 
+let emailJsLoader = null;
+
+const loadEmailJs = () => {
+  if (window.emailjs) return Promise.resolve(window.emailjs);
+  if (emailJsLoader) return emailJsLoader;
+
+  emailJsLoader = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+    script.async = true;
+    script.onload = () => resolve(window.emailjs);
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+
+  return emailJsLoader;
+};
+
+let headerFrame = 0;
+let headerIsScrolled = null;
+
 const setHeaderState = () => {
+  headerFrame = 0;
+  const nextState = window.scrollY > 18;
+  if (nextState === headerIsScrolled) return;
+  headerIsScrolled = nextState;
   header?.classList.toggle("is-scrolled", window.scrollY > 18);
+};
+
+const requestHeaderState = () => {
+  if (headerFrame) return;
+  headerFrame = requestAnimationFrame(setHeaderState);
 };
 
 const closeNavigation = () => {
@@ -101,7 +138,7 @@ const closeNavigation = () => {
 };
 
 setHeaderState();
-window.addEventListener("scroll", setHeaderState, { passive: true });
+window.addEventListener("scroll", requestHeaderState, { passive: true });
 
 navToggle?.addEventListener("click", () => {
   const isOpen = document.body.classList.toggle("nav-open");
@@ -198,149 +235,92 @@ const counterObserver = new IntersectionObserver(
 
 counters.forEach((counter) => counterObserver.observe(counter));
 
-const initGsapMotion = () => {
-  if (prefersReducedMotion || !window.gsap) return;
+if (!prefersReducedMotion && supportsFinePointer) {
+  let pointerFrame = 0;
+  let pointerX = 0;
+  let pointerY = 0;
 
-  const gsap = window.gsap;
+  window.addEventListener(
+    "pointermove",
+    (event) => {
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      if (pointerFrame) return;
 
-  if (window.ScrollTrigger) {
-    gsap.registerPlugin(window.ScrollTrigger);
-    gsap.utils.toArray(".section").forEach((section) => {
-      gsap.fromTo(
-        section,
-        { y: 38, opacity: 0.92 },
-        {
-          y: 0,
-          opacity: 1,
-          ease: "power3.out",
-          duration: 0.9,
-          scrollTrigger: {
-            trigger: section,
-            start: "top 82%",
-            once: true
-          }
+      pointerFrame = requestAnimationFrame(() => {
+        pointerFrame = 0;
+        const now = performance.now();
+        if (processStream && now - lastStreamImpulse > 700) {
+          lastStreamImpulse = now;
+          processStream.classList.add("has-impulse");
+          setTimeout(() => processStream.classList.remove("has-impulse"), 520);
         }
-      );
+
+        const x = (pointerX / window.innerWidth - 0.5) * 2;
+        const y = (pointerY / window.innerHeight - 0.5) * 2;
+        parallaxItems.forEach((item) => {
+          item.style.transform = `translate3d(${x * 14}px, ${y * 10}px, 0)`;
+        });
+      });
+    },
+    { passive: true }
+  );
+
+  const bindFrameLimitedPointer = (item, update) => {
+    let frame = 0;
+    let lastEvent = null;
+
+    item.addEventListener(
+      "pointermove",
+      (event) => {
+        lastEvent = event;
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          update(lastEvent);
+        });
+      },
+      { passive: true }
+    );
+  };
+
+  magneticItems.forEach((item) => {
+    bindFrameLimitedPointer(item, (event) => {
+      const rect = item.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      item.style.setProperty("--mx", `${x}px`);
+      item.style.setProperty("--my", `${y}px`);
+      item.style.transform = `translate3d(${(x - rect.width / 2) * 0.13}px, ${(y - rect.height / 2) * 0.13}px, 0)`;
     });
-  }
 
-  gsap.to(".system-node", {
-    y: -10,
-    duration: 3.8,
-    ease: "sine.inOut",
-    repeat: -1,
-    yoyo: true,
-    stagger: 0.22
-  });
-
-  gsap.to(".process-stream", {
-    y: -26,
-    duration: 12,
-    ease: "sine.inOut",
-    repeat: -1,
-    yoyo: true
-  });
-
-  gsap.to(".stream-path", {
-    strokeDashoffset: -220,
-    duration: 14,
-    ease: "none",
-    repeat: -1,
-    stagger: 0.8
-  });
-
-  gsap.to(".metric-card", {
-    y: -5,
-    duration: 3.2,
-    ease: "sine.inOut",
-    repeat: -1,
-    yoyo: true,
-    stagger: 0.18
-  });
-
-  gsap.to(".module-card", {
-    y: -6,
-    duration: 3.8,
-    ease: "sine.inOut",
-    repeat: -1,
-    yoyo: true,
-    stagger: 0.16
-  });
-
-  gsap.to(".section-dataflow span", {
-    xPercent: 8,
-    duration: 8,
-    ease: "sine.inOut",
-    repeat: -1,
-    yoyo: true,
-    stagger: 0.6
-  });
-};
-
-window.addEventListener("load", initGsapMotion);
-
-window.addEventListener(
-  "pointermove",
-  (event) => {
-    if (prefersReducedMotion) return;
-
-    const now = performance.now();
-    if (processStream && now - lastStreamImpulse > 420) {
-      lastStreamImpulse = now;
-      processStream.classList.add("has-impulse");
-      setTimeout(() => processStream.classList.remove("has-impulse"), 520);
-    }
-
-    const x = (event.clientX / window.innerWidth - 0.5) * 2;
-    const y = (event.clientY / window.innerHeight - 0.5) * 2;
-    parallaxItems.forEach((item) => {
-      item.style.transform = `translate3d(${x * 14}px, ${y * 10}px, 0)`;
+    item.addEventListener("pointerleave", () => {
+      item.style.transform = "translate3d(0, 0, 0)";
     });
-  },
-  { passive: true }
-);
-
-magneticItems.forEach((item) => {
-  item.addEventListener("pointermove", (event) => {
-    if (prefersReducedMotion) return;
-    const rect = item.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    const moveX = (x - rect.width / 2) * 0.13;
-    const moveY = (y - rect.height / 2) * 0.13;
-    item.style.setProperty("--mx", `${x}px`);
-    item.style.setProperty("--my", `${y}px`);
-    item.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
   });
 
-  item.addEventListener("pointerleave", () => {
-    item.style.transform = "translate3d(0, 0, 0)";
+  tiltItems.forEach((item) => {
+    bindFrameLimitedPointer(item, (event) => {
+      const rect = item.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const tiltX = ((x / rect.width) - 0.5) * 7;
+      const tiltY = ((y / rect.height) - 0.5) * -7;
+
+      item.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
+      item.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
+      item.style.setProperty("--card-x", `${x}px`);
+      item.style.setProperty("--card-y", `${y}px`);
+    });
+
+    item.addEventListener("pointerleave", () => {
+      item.style.setProperty("--tilt-x", "0deg");
+      item.style.setProperty("--tilt-y", "0deg");
+      item.style.removeProperty("--card-x");
+      item.style.removeProperty("--card-y");
+    });
   });
-});
-
-tiltItems.forEach((item) => {
-  item.addEventListener("pointermove", (event) => {
-    if (prefersReducedMotion || window.innerWidth < 860) return;
-
-    const rect = item.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    const tiltX = ((x / rect.width) - 0.5) * 7;
-    const tiltY = ((y / rect.height) - 0.5) * -7;
-
-    item.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
-    item.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
-    item.style.setProperty("--card-x", `${x}px`);
-    item.style.setProperty("--card-y", `${y}px`);
-  });
-
-  item.addEventListener("pointerleave", () => {
-    item.style.setProperty("--tilt-x", "0deg");
-    item.style.setProperty("--tilt-y", "0deg");
-    item.style.removeProperty("--card-x");
-    item.style.removeProperty("--card-y");
-  });
-});
+}
 
 const setFormStatus = (message, type = "neutral") => {
   formStatus.textContent = message;
@@ -401,7 +381,8 @@ form?.addEventListener("submit", async (event) => {
   submitButton.querySelector("span").textContent = "Wird gesendet...";
 
   try {
-    if (window.emailjs && hasEmailJsConfig()) {
+    if (hasEmailJsConfig()) {
+      await loadEmailJs();
       emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
       await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.requestTemplateId, payload);
       await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.confirmationTemplateId, payload);
@@ -756,34 +737,38 @@ const SERVICE_MODAL_DATA = {
   websites: {
     eyebrow: "Webseiten",
     title: "Digitale Auftritte, die Vertrauen in Anfragen verwandeln.",
-    intro: "Vier beispielhafte Website-Konzepte für Unternehmen mit unterschiedlichen Zielen und Zielgruppen.",
+    intro: "Vier hochwertige Website-Konzepte für Unternehmen mit unterschiedlichen Zielen und Zielgruppen.",
     type: "website",
     items: [
       {
         title: "Heizungsfirma Hamburg",
-        image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=82",
-        alt: "Professioneller Handwerker bei der Arbeit",
+        theme: "heating",
+        label: "Nordwärme",
+        metric: "24/7 Notdienst",
         features: ["Modernes Unternehmensdesign", "Notdienst-Bereich", "Kontaktformular", "Google Bewertungen", "Terminbuchung"],
         result: "Ein klarer Service-Auftritt, der dringende Anfragen schnell zum richtigen Ansprechpartner führt."
       },
       {
         title: "Immobilienmakler",
-        image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=82",
-        alt: "Luxuriöse moderne Immobilie",
+        theme: "estate",
+        label: "Maison & Co.",
+        metric: "16 Objekte",
         features: ["Luxus-Immobilien", "Objektübersicht", "Exposé-Anfrage", "Hochwertige Bilder"],
         result: "Eine elegante Objektpräsentation, die hochwertige Immobilien erlebbar macht und qualifizierte Anfragen erzeugt."
       },
       {
         title: "Dachdeckerbetrieb",
-        image: "https://images.unsplash.com/photo-1632759145351-1d592919f522?auto=format&fit=crop&w=1400&q=82",
-        alt: "Dachdecker bei professionellen Arbeiten auf einem Dach",
+        theme: "roofing",
+        label: "Hanse Dach",
+        metric: "48 Projekte",
         features: ["Referenzen", "Vorher/Nachher Projekte", "Angebotsanfrage", "Mobile Optimierung"],
         result: "Referenzstarke Darstellung mit kurzen Wegen zur Angebotsanfrage auf jedem Endgerät."
       },
       {
         title: "Fitnessstudio",
-        image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1400&q=82",
-        alt: "Modern ausgestattetes Fitnessstudio",
+        theme: "fitness",
+        label: "Form Studio",
+        metric: "12 Kurse",
         features: ["Kursübersicht", "Mitgliedschaft", "Trainerprofil", "Online-Anmeldung"],
         result: "Ein dynamischer Markenauftritt, der Kurse, Trainer und Mitgliedschaften übersichtlich verbindet."
       }
@@ -792,7 +777,7 @@ const SERVICE_MODAL_DATA = {
   chatbots: {
     eyebrow: "KI-Chatbots",
     title: "Digitale Assistenten für schnelle Antworten und bessere Leads.",
-    intro: "Beispielhafte Dialoge zeigen, wie Interessenten rund um die Uhr qualifiziert und weitergeführt werden.",
+    intro: "Konkrete Dialoge zeigen, wie Interessenten rund um die Uhr qualifiziert und weitergeführt werden.",
     type: "chatbot",
     items: [
       {
@@ -844,7 +829,7 @@ const SERVICE_MODAL_DATA = {
   automations: {
     eyebrow: "Automatisierungen",
     title: "Prozesse, die Informationen automatisch an den richtigen Ort bringen.",
-    intro: "Vier Workflow-Beispiele für weniger Handarbeit, schnellere Reaktionen und klare Übergaben.",
+    intro: "Vier Workflows für weniger Handarbeit, schnellere Reaktionen und klare Übergaben.",
     type: "workflow",
     items: [
       {
@@ -919,12 +904,20 @@ const initServiceModals = () => {
       <div class="website-mockups">
         <div class="desktop-mockup">
           <div class="mockup-browser"><i></i><i></i><i></i><span>${item.title}</span></div>
-          <img src="${item.image}" alt="${item.alt}" loading="lazy" decoding="async" />
-          <div class="mockup-overlay"><span>Premium Website</span><strong>${item.title}</strong></div>
+          <div class="website-ui website-ui-${item.theme}" role="img" aria-label="Website-Konzept für ${item.title}">
+            <div class="website-ui-nav"><strong>${item.label}</strong><span>Leistungen</span><span>Referenzen</span><i></i></div>
+            <div class="website-ui-hero">
+              <div><small>Professionell. Persönlich. Digital.</small><strong>${item.title}</strong><span>Klare Leistungen und direkte Wege zur Anfrage.</span><button type="button" tabindex="-1">Projekt anfragen</button></div>
+              <div class="website-ui-visual"><i></i><i></i><i></i></div>
+            </div>
+            <div class="website-ui-stats"><span><strong>${item.metric}</strong>direkt sichtbar</span><span><strong>4,9 / 5</strong>Kundenstimmen</span><span><strong>&lt; 1 Min.</strong>zur Anfrage</span></div>
+          </div>
         </div>
         <div class="phone-mockup">
           <span></span>
-          <img src="${item.image}" alt="" loading="lazy" decoding="async" />
+          <div class="phone-ui phone-ui-${item.theme}">
+            <strong>${item.label}</strong><i></i><h4>${item.title}</h4><small>Leistung auswählen</small><b>Anfrage starten</b>
+          </div>
         </div>
       </div>
       <div class="service-example-copy">
@@ -1160,10 +1153,7 @@ const initReviews = () => {
     stars.setAttribute("aria-label", `${review.rating} von 5 Sternen`);
     stars.textContent = `${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}`;
 
-    const tag = document.createElement("span");
-    tag.className = "review-tag";
-    tag.textContent = "Eingereicht";
-    top.append(stars, tag);
+    top.append(stars);
 
     const comment = document.createElement("p");
     comment.textContent = `„${review.comment}“`;
@@ -1179,6 +1169,7 @@ const initReviews = () => {
     reviewList.prepend(card);
   };
 
+  // Local preview only: permanent, shared reviews require a future API/backend.
   readReviews().slice(0, 5).reverse().forEach((review) => renderReview(review));
 
   reviewForm.addEventListener("submit", (event) => {
@@ -1204,21 +1195,26 @@ const initReviews = () => {
     };
 
     const reviews = [review, ...readReviews()].slice(0, 5);
-    saveReviews(reviews);
+    const savedLocally = saveReviews(reviews);
     renderReview(review, true);
     reviewForm.reset();
-    setReviewStatus("Vielen Dank für Ihre Bewertung.", "success");
+    setReviewStatus(
+      savedLocally
+        ? "Vielen Dank. Ihre Bewertung wurde lokal in diesem Browser gespeichert."
+        : "Vielen Dank für Ihre Bewertung. Die lokale Speicherung ist in diesem Browser nicht verfügbar.",
+      "success"
+    );
   });
 };
 
 initReviews();
 
 const initParticles = () => {
-  if (!particleCanvas || prefersReducedMotion) return;
+  if (!particleCanvas || prefersReducedMotion || isMobileViewport) return;
 
   const context = particleCanvas.getContext("2d");
   const particles = [];
-  const particleCount = Math.min(78, Math.max(34, Math.floor(window.innerWidth / 21)));
+  const particleCount = Math.min(42, Math.max(28, Math.floor(window.innerWidth / 34)));
   let width = 0;
   let height = 0;
   let pixelRatio = 1;
@@ -1245,7 +1241,21 @@ const initParticles = () => {
   resize();
   for (let index = 0; index < particleCount; index += 1) particles.push(createParticle());
 
-  const draw = () => {
+  let animationFrame = 0;
+  let lastDrawTime = 0;
+
+  const draw = (time = 0) => {
+    if (document.hidden) {
+      animationFrame = 0;
+      return;
+    }
+
+    if (time - lastDrawTime < 32) {
+      animationFrame = requestAnimationFrame(draw);
+      return;
+    }
+    lastDrawTime = time;
+
     context.clearRect(0, 0, width, height);
 
     particles.forEach((particle, index) => {
@@ -1260,7 +1270,7 @@ const initParticles = () => {
       context.fillStyle = "rgba(91, 127, 255, 0.32)";
       context.fill();
 
-      for (let nextIndex = index + 1; nextIndex < particles.length; nextIndex += 1) {
+      for (let nextIndex = index + 1; nextIndex < Math.min(particles.length, index + 10); nextIndex += 1) {
         const next = particles[nextIndex];
         const distance = Math.hypot(particle.x - next.x, particle.y - next.y);
         if (distance > 130) continue;
@@ -1274,10 +1284,13 @@ const initParticles = () => {
       }
     });
 
-    requestAnimationFrame(draw);
+    animationFrame = requestAnimationFrame(draw);
   };
 
   window.addEventListener("resize", resize, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && !animationFrame) draw();
+  });
   draw();
 };
 
