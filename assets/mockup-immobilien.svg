@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600">
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#bac5cf"/><stop offset="1" stop-color="#eef1f3"/></linearGradient></defs>
+  <rect width="960" height="600" rx="18" fill="#f7f6f3"/>
+  <rect width="960" height="74" fill="#fff"/>
+  <text x="44" y="45" fill="#26313d" font-family="Georgia,serif" font-size="23" font-weight="700">MAISON &amp; CO.</text>
+  <text x="554" y="44" fill="#68717d" font-family="Arial,sans-serif" font-size="14">Immobilien</text>
+  <text x="660" y="44" fill="#68717d" font-family="Arial,sans-serif" font-size="14">Verkaufen</text>
+  <rect x="795" y="21" width="121" height="35" rx="17" fill="#26313d"/>
+  <text x="820" y="44" fill="#fff" font-family="Arial,sans-serif" font-size="12" font-weight="700">Exposé</text>
+  <rect x="0" y="74" width="960" height="330" fill="url(#sky)"/>
+  <rect x="455" y="153" width="408" height="195" fill="#faf9f6"/>
+  <polygon points="430,163 646,90 887,164" fill="#4f5965"/>
+  <rect x="505" y="210" width="86" height="138" fill="#8998a5"/>
+  <rect x="620" y="194" width="93" height="72" fill="#7d8d99"/>
+  <rect x="740" y="194" width="93" height="72" fill="#7d8d99"/>
+  <rect x="0" y="328" width="960" height="76" fill="#879783"/>
+  <rect x="42" y="112" width="354" height="246" rx="12" fill="#fff" opacity=".96"/>
+  <text x="72" y="151" fill="#68717d" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="2">EXKLUSIV IN HAMBURG</text>
+  <text x="72" y="204" fill="#26313d" font-family="Georgia,serif" font-size="40" font-weight="700">Architektur.</text>
+  <text x="72" y="249" fill="#26313d" font-family="Georgia,serif" font-size="40" font-weight="700">Lage. Zuhause.</text>
+  <text x="72" y="290" fill="#69727e" font-family="Arial,sans-serif" font-size="16">Ausgewählte Immobilien mit Charakter.</text>
+  <rect x="72" y="315" width="152" height="34" rx="17" fill="#26313d"/>
+  <text x="96" y="337" fill="#fff" font-family="Arial,sans-serif" font-size="12" font-weight="700">Objekte ansehen</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="42" y="440" width="274" height="112" rx="16" fill="#fff"/><text x="62" y="473" fill="#87909a" font-size="12">Aktive Objekte</text><text x="62" y="514" fill="#26313d" font-size="28" font-weight="700">16</text>
+    <rect x="343" y="440" width="274" height="112" rx="16" fill="#fff"/><text x="363" y="473" fill="#87909a" font-size="12">Neue Exposés</text><text x="363" y="514" fill="#26313d" font-size="28" font-weight="700">4</text>
+    <rect x="644" y="440" width="274" height="112" rx="16" fill="#26313d"/><text x="665" y="473" fill="#c8ad68" font-size="12">Persönliche Beratung</text><text x="665" y="514" fill="#fff" font-size="22" font-weight="700">Termin vereinbaren</text>
+  </g>
+</svg>

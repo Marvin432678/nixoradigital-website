@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#f2eee5"/></linearGradient>
+    <linearGradient id="heat" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e3c46c"/><stop offset="1" stop-color="#9a701d"/></linearGradient>
+  </defs>
+  <rect width="960" height="600" rx="18" fill="url(#bg)"/>
+  <rect width="960" height="74" fill="#fff"/>
+  <path d="M42 38h25M54 26v25" stroke="#b78a32" stroke-width="8" stroke-linecap="round"/>
+  <text x="86" y="45" fill="#202a36" font-family="Arial,sans-serif" font-size="20" font-weight="700">NORDWÄRME</text>
+  <text x="545" y="44" fill="#69727e" font-family="Arial,sans-serif" font-size="14">Leistungen</text>
+  <text x="650" y="44" fill="#69727e" font-family="Arial,sans-serif" font-size="14">Referenzen</text>
+  <rect x="790" y="22" width="126" height="34" rx="17" fill="#252f3c"/>
+  <text x="815" y="44" fill="#fff" font-family="Arial,sans-serif" font-size="12" font-weight="700">Notdienst</text>
+  <text x="50" y="142" fill="#aa7e29" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="2">HEIZUNG · SANITÄR · SERVICE</text>
+  <text x="50" y="202" fill="#202a36" font-family="Arial,sans-serif" font-size="48" font-weight="700">Wärme, wenn es</text>
+  <text x="50" y="255" fill="#202a36" font-family="Arial,sans-serif" font-size="48" font-weight="700">darauf ankommt.</text>
+  <text x="50" y="302" fill="#68717d" font-family="Arial,sans-serif" font-size="18">Schneller Service für Hamburg und Umgebung.</text>
+  <rect x="50" y="340" width="166" height="48" rx="24" fill="#252f3c"/>
+  <text x="79" y="370" fill="#fff" font-family="Arial,sans-serif" font-size="14" font-weight="700">Termin anfragen</text>
+  <rect x="520" y="112" width="380" height="290" rx="26" fill="#e6dcc7"/>
+  <circle cx="710" cy="257" r="105" fill="url(#heat)" opacity=".9"/>
+  <path d="M659 310V205c0-30 22-53 51-53s51 23 51 53v105" fill="none" stroke="#fff" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="710" cy="317" r="29" fill="#fff"/>
+  <g font-family="Arial,sans-serif">
+    <rect x="50" y="454" width="260" height="104" rx="16" fill="#fff"/>
+    <text x="72" y="490" fill="#a77b28" font-size="14" font-weight="700">24/7</text><text x="72" y="520" fill="#26313d" font-size="21" font-weight="700">Notdienst</text>
+    <rect x="330" y="454" width="260" height="104" rx="16" fill="#fff"/>
+    <text x="352" y="490" fill="#a77b28" font-size="14" font-weight="700">4,9 / 5</text><text x="352" y="520" fill="#26313d" font-size="21" font-weight="700">Kundenstimmen</text>
+    <rect x="610" y="454" width="290" height="104" rx="16" fill="#26313d"/>
+    <text x="634" y="490" fill="#e3c46c" font-size="14" font-weight="700">ONLINE</text><text x="634" y="520" fill="#fff" font-size="21" font-weight="700">Direkt Termin wählen</text>
+  </g>
+</svg>

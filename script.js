@@ -745,7 +745,7 @@ const SERVICE_MODAL_DATA = {
         theme: "heating",
         label: "Nordwärme",
         metric: "24/7 Notdienst",
-        image: "assets/mockup-heizungsfirma.svg",
+        image: "assets/heizung-preview.webp",
         alt: "Website-Mockup für eine Heizungsfirma in Hamburg",
         features: ["Modernes Unternehmensdesign", "Notdienst-Bereich", "Kontaktformular", "Google Bewertungen", "Terminbuchung"],
         result: "Ein klarer Service-Auftritt, der dringende Anfragen schnell zum richtigen Ansprechpartner führt."
@@ -755,7 +755,7 @@ const SERVICE_MODAL_DATA = {
         theme: "estate",
         label: "Maison & Co.",
         metric: "16 Objekte",
-        image: "assets/mockup-immobilien.svg",
+        image: "assets/immobilien-preview.webp",
         alt: "Website-Mockup für einen Immobilienmakler",
         features: ["Luxus-Immobilien", "Objektübersicht", "Exposé-Anfrage", "Hochwertige Bilder"],
         result: "Eine elegante Objektpräsentation, die hochwertige Immobilien erlebbar macht und qualifizierte Anfragen erzeugt."
@@ -765,7 +765,7 @@ const SERVICE_MODAL_DATA = {
         theme: "roofing",
         label: "Hanse Dach",
         metric: "48 Projekte",
-        image: "assets/mockup-dachdecker.svg",
+        image: "assets/dachdecker-preview.webp",
         alt: "Website-Mockup für einen Dachdeckerbetrieb",
         features: ["Referenzen", "Vorher/Nachher Projekte", "Angebotsanfrage", "Mobile Optimierung"],
         result: "Referenzstarke Darstellung mit kurzen Wegen zur Angebotsanfrage auf jedem Endgerät."
@@ -775,7 +775,7 @@ const SERVICE_MODAL_DATA = {
         theme: "fitness",
         label: "Form Studio",
         metric: "12 Kurse",
-        image: "assets/mockup-fitnessstudio.svg",
+        image: "assets/fitness-preview.webp",
         alt: "Website-Mockup für ein Fitnessstudio",
         features: ["Kursübersicht", "Mitgliedschaft", "Trainerprofil", "Online-Anmeldung"],
         result: "Ein dynamischer Markenauftritt, der Kurse, Trainer und Mitgliedschaften übersichtlich verbindet."
@@ -912,11 +912,11 @@ const initServiceModals = () => {
       <div class="website-mockups">
         <div class="desktop-mockup">
           <div class="mockup-browser"><i></i><i></i><i></i><span>${item.title}</span></div>
-          <img src="${item.image}" alt="${item.alt}" width="960" height="600" loading="lazy" decoding="async" />
+          <img src="${item.image}" alt="${item.alt}" width="1439" height="900" loading="lazy" decoding="async" />
         </div>
         <div class="phone-mockup">
           <span></span>
-          <img src="${item.image}" alt="" width="960" height="600" loading="lazy" decoding="async" />
+          <img src="${item.image}" alt="" width="1439" height="900" loading="lazy" decoding="async" />
         </div>
       </div>
       <div class="service-example-copy">
