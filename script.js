@@ -752,6 +752,104 @@ const initChatbot = () => {
 
 initChatbot();
 
+const initReviews = () => {
+  const reviewForm = document.querySelector("[data-review-form]");
+  const reviewList = document.querySelector("[data-review-list]");
+  const reviewStatus = document.querySelector("[data-review-status]");
+  if (!reviewForm || !reviewList || !reviewStatus) return;
+
+  const storageKey = "nixora_local_reviews";
+
+  const readReviews = () => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(storageKey) || "[]");
+      return Array.isArray(stored) ? stored : [];
+    } catch (error) {
+      return [];
+    }
+  };
+
+  const saveReviews = (reviews) => {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(reviews));
+    } catch (error) {
+      return false;
+    }
+    return true;
+  };
+
+  const setReviewStatus = (message, type) => {
+    reviewStatus.textContent = message;
+    reviewStatus.classList.toggle("is-success", type === "success");
+    reviewStatus.classList.toggle("is-error", type === "error");
+    reviewStatus.classList.add("is-visible");
+  };
+
+  const renderReview = (review, animate = false) => {
+    const card = document.createElement("article");
+    card.className = `review-card${animate ? " is-new" : ""}`;
+
+    const top = document.createElement("div");
+    top.className = "review-card-top";
+
+    const stars = document.createElement("span");
+    stars.className = "review-card-stars";
+    stars.setAttribute("aria-label", `${review.rating} von 5 Sternen`);
+    stars.textContent = `${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}`;
+
+    const tag = document.createElement("span");
+    tag.className = "review-tag";
+    tag.textContent = "Eingereicht";
+    top.append(stars, tag);
+
+    const comment = document.createElement("p");
+    comment.textContent = `„${review.comment}“`;
+
+    const footer = document.createElement("footer");
+    const name = document.createElement("strong");
+    name.textContent = review.name;
+    const company = document.createElement("span");
+    company.textContent = review.company || "Kunde von NIXORA DIGITAL";
+    footer.append(name, company);
+
+    card.append(top, comment, footer);
+    reviewList.prepend(card);
+  };
+
+  readReviews().slice(0, 5).reverse().forEach((review) => renderReview(review));
+
+  reviewForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(reviewForm);
+    const name = String(formData.get("reviewName") || "").trim();
+    const company = String(formData.get("reviewCompany") || "").trim();
+    const comment = String(formData.get("reviewComment") || "").trim();
+    const rating = Number(formData.get("rating"));
+
+    if (name.length < 2 || comment.length < 10 || rating < 1 || rating > 5) {
+      setReviewStatus("Bitte geben Sie Name, Sternebewertung und einen kurzen Kommentar an.", "error");
+      return;
+    }
+
+    const review = {
+      id: Date.now(),
+      name,
+      company,
+      comment,
+      rating
+    };
+
+    const reviews = [review, ...readReviews()].slice(0, 5);
+    saveReviews(reviews);
+    renderReview(review, true);
+    reviewForm.reset();
+    setReviewStatus("Vielen Dank für Ihre Bewertung.", "success");
+  });
+};
+
+initReviews();
+
 const initParticles = () => {
   if (!particleCanvas || prefersReducedMotion) return;
 
