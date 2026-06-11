@@ -21,16 +21,11 @@ const sections = document.querySelectorAll("main section[id]");
 const revealItems = document.querySelectorAll(".reveal");
 const counters = document.querySelectorAll("[data-count]");
 const magneticItems = document.querySelectorAll(".magnetic");
-const parallaxItems = document.querySelectorAll("[data-parallax]");
 const tiltItems = document.querySelectorAll(".service-card, .metric-card, .case-card, .about-copy, .about-visual, .contact-form");
 const form = document.querySelector("[data-form]");
 const formStatus = document.querySelector("[data-form-status]");
-const particleCanvas = document.querySelector("[data-particles]");
-const processStream = document.querySelector(".process-stream");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const supportsFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-const isMobileViewport = window.matchMedia("(max-width: 820px)").matches;
-let lastStreamImpulse = 0;
 const COOKIE_STORAGE_KEY = "nixora_cookie_choice";
 const CHAT_SESSION_KEY = "nixora_chat_session";
 const CONTACT_FORM_REPLY =
@@ -56,10 +51,9 @@ const enforceChatbotRules = (reply) =>
     ? CONTACT_FORM_REPLY
     : reply;
 
-if (isMobileViewport || prefersReducedMotion) {
-  document.querySelector(".process-stream")?.pauseAnimations?.();
-  document.querySelector(".system-lines")?.pauseAnimations?.();
-}
+document.querySelectorAll(".process-stream, .system-lines, .mockup-lines").forEach((graphic) => {
+  graphic.pauseAnimations?.();
+});
 
 if ("scrollRestoration" in window.history) {
   window.history.scrollRestoration = "manual";
@@ -236,36 +230,6 @@ const counterObserver = new IntersectionObserver(
 counters.forEach((counter) => counterObserver.observe(counter));
 
 if (!prefersReducedMotion && supportsFinePointer) {
-  let pointerFrame = 0;
-  let pointerX = 0;
-  let pointerY = 0;
-
-  window.addEventListener(
-    "pointermove",
-    (event) => {
-      pointerX = event.clientX;
-      pointerY = event.clientY;
-      if (pointerFrame) return;
-
-      pointerFrame = requestAnimationFrame(() => {
-        pointerFrame = 0;
-        const now = performance.now();
-        if (processStream && now - lastStreamImpulse > 700) {
-          lastStreamImpulse = now;
-          processStream.classList.add("has-impulse");
-          setTimeout(() => processStream.classList.remove("has-impulse"), 520);
-        }
-
-        const x = (pointerX / window.innerWidth - 0.5) * 2;
-        const y = (pointerY / window.innerHeight - 0.5) * 2;
-        parallaxItems.forEach((item) => {
-          item.style.transform = `translate3d(${x * 14}px, ${y * 10}px, 0)`;
-        });
-      });
-    },
-    { passive: true }
-  );
-
   const bindFrameLimitedPointer = (item, update) => {
     let frame = 0;
     let lastEvent = null;
@@ -1207,90 +1171,3 @@ const initReviews = () => {
 };
 
 initReviews();
-
-const initParticles = () => {
-  if (!particleCanvas || prefersReducedMotion || isMobileViewport) return;
-
-  const context = particleCanvas.getContext("2d");
-  const particles = [];
-  const particleCount = Math.min(42, Math.max(28, Math.floor(window.innerWidth / 34)));
-  let width = 0;
-  let height = 0;
-  let pixelRatio = 1;
-
-  const resize = () => {
-    pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-    width = window.innerWidth;
-    height = window.innerHeight;
-    particleCanvas.width = width * pixelRatio;
-    particleCanvas.height = height * pixelRatio;
-    particleCanvas.style.width = `${width}px`;
-    particleCanvas.style.height = `${height}px`;
-    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-  };
-
-  const createParticle = () => ({
-    x: Math.random() * width,
-    y: Math.random() * height,
-    vx: (Math.random() - 0.5) * 0.22,
-    vy: (Math.random() - 0.5) * 0.22,
-    r: Math.random() * 1.7 + 0.8
-  });
-
-  resize();
-  for (let index = 0; index < particleCount; index += 1) particles.push(createParticle());
-
-  let animationFrame = 0;
-  let lastDrawTime = 0;
-
-  const draw = (time = 0) => {
-    if (document.hidden) {
-      animationFrame = 0;
-      return;
-    }
-
-    if (time - lastDrawTime < 32) {
-      animationFrame = requestAnimationFrame(draw);
-      return;
-    }
-    lastDrawTime = time;
-
-    context.clearRect(0, 0, width, height);
-
-    particles.forEach((particle, index) => {
-      particle.x += particle.vx;
-      particle.y += particle.vy;
-
-      if (particle.x < 0 || particle.x > width) particle.vx *= -1;
-      if (particle.y < 0 || particle.y > height) particle.vy *= -1;
-
-      context.beginPath();
-      context.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2);
-      context.fillStyle = "rgba(91, 127, 255, 0.32)";
-      context.fill();
-
-      for (let nextIndex = index + 1; nextIndex < Math.min(particles.length, index + 10); nextIndex += 1) {
-        const next = particles[nextIndex];
-        const distance = Math.hypot(particle.x - next.x, particle.y - next.y);
-        if (distance > 130) continue;
-
-        context.beginPath();
-        context.moveTo(particle.x, particle.y);
-        context.lineTo(next.x, next.y);
-        context.strokeStyle = `rgba(212, 175, 55, ${0.12 * (1 - distance / 130)})`;
-        context.lineWidth = 1;
-        context.stroke();
-      }
-    });
-
-    animationFrame = requestAnimationFrame(draw);
-  };
-
-  window.addEventListener("resize", resize, { passive: true });
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden && !animationFrame) draw();
-  });
-  draw();
-};
-
-initParticles();

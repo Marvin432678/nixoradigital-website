@@ -4101,6 +4101,51 @@ textarea:focus-visible {
   }
 }
 
+/* Static decorative background: preserves the visual structure without continuous rendering. */
+.particle-canvas {
+  display: none;
+}
+
+.stream-path,
+.flow-line,
+.mockup-lines path,
+.hero::after,
+.hero-aura,
+.hero-system::after,
+.core-pulse,
+.core-orbit,
+.system-node,
+.services-section::before,
+.section-dataflow span,
+.metric-grid::before,
+.metric-grid::after,
+.metric-card::before,
+.about-ring,
+.about-point,
+.module-card,
+.reviews-section::before,
+.contact-section::before,
+.legal-side-card::before {
+  animation: none !important;
+}
+
+.stream-path,
+.flow-line,
+.mockup-lines path {
+  filter: none;
+}
+
+.stream-dot,
+.signal-dot,
+.mock-dot,
+.section-dataflow span::after {
+  display: none;
+}
+
+.process-stream.has-impulse {
+  animation: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
