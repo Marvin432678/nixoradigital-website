@@ -745,6 +745,8 @@ const SERVICE_MODAL_DATA = {
         theme: "heating",
         label: "Nordwärme",
         metric: "24/7 Notdienst",
+        image: "assets/mockup-heizungsfirma.svg",
+        alt: "Website-Mockup für eine Heizungsfirma in Hamburg",
         features: ["Modernes Unternehmensdesign", "Notdienst-Bereich", "Kontaktformular", "Google Bewertungen", "Terminbuchung"],
         result: "Ein klarer Service-Auftritt, der dringende Anfragen schnell zum richtigen Ansprechpartner führt."
       },
@@ -753,6 +755,8 @@ const SERVICE_MODAL_DATA = {
         theme: "estate",
         label: "Maison & Co.",
         metric: "16 Objekte",
+        image: "assets/mockup-immobilien.svg",
+        alt: "Website-Mockup für einen Immobilienmakler",
         features: ["Luxus-Immobilien", "Objektübersicht", "Exposé-Anfrage", "Hochwertige Bilder"],
         result: "Eine elegante Objektpräsentation, die hochwertige Immobilien erlebbar macht und qualifizierte Anfragen erzeugt."
       },
@@ -761,6 +765,8 @@ const SERVICE_MODAL_DATA = {
         theme: "roofing",
         label: "Hanse Dach",
         metric: "48 Projekte",
+        image: "assets/mockup-dachdecker.svg",
+        alt: "Website-Mockup für einen Dachdeckerbetrieb",
         features: ["Referenzen", "Vorher/Nachher Projekte", "Angebotsanfrage", "Mobile Optimierung"],
         result: "Referenzstarke Darstellung mit kurzen Wegen zur Angebotsanfrage auf jedem Endgerät."
       },
@@ -769,6 +775,8 @@ const SERVICE_MODAL_DATA = {
         theme: "fitness",
         label: "Form Studio",
         metric: "12 Kurse",
+        image: "assets/mockup-fitnessstudio.svg",
+        alt: "Website-Mockup für ein Fitnessstudio",
         features: ["Kursübersicht", "Mitgliedschaft", "Trainerprofil", "Online-Anmeldung"],
         result: "Ein dynamischer Markenauftritt, der Kurse, Trainer und Mitgliedschaften übersichtlich verbindet."
       }
@@ -904,20 +912,11 @@ const initServiceModals = () => {
       <div class="website-mockups">
         <div class="desktop-mockup">
           <div class="mockup-browser"><i></i><i></i><i></i><span>${item.title}</span></div>
-          <div class="website-ui website-ui-${item.theme}" role="img" aria-label="Website-Konzept für ${item.title}">
-            <div class="website-ui-nav"><strong>${item.label}</strong><span>Leistungen</span><span>Referenzen</span><i></i></div>
-            <div class="website-ui-hero">
-              <div><small>Professionell. Persönlich. Digital.</small><strong>${item.title}</strong><span>Klare Leistungen und direkte Wege zur Anfrage.</span><button type="button" tabindex="-1">Projekt anfragen</button></div>
-              <div class="website-ui-visual"><i></i><i></i><i></i></div>
-            </div>
-            <div class="website-ui-stats"><span><strong>${item.metric}</strong>direkt sichtbar</span><span><strong>4,9 / 5</strong>Kundenstimmen</span><span><strong>&lt; 1 Min.</strong>zur Anfrage</span></div>
-          </div>
+          <img src="${item.image}" alt="${item.alt}" width="960" height="600" loading="lazy" decoding="async" />
         </div>
         <div class="phone-mockup">
           <span></span>
-          <div class="phone-ui phone-ui-${item.theme}">
-            <strong>${item.label}</strong><i></i><h4>${item.title}</h4><small>Leistung auswählen</small><b>Anfrage starten</b>
-          </div>
+          <img src="${item.image}" alt="" width="960" height="600" loading="lazy" decoding="async" />
         </div>
       </div>
       <div class="service-example-copy">

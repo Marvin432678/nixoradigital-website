@@ -278,8 +278,10 @@ body.service-modal-open {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 10;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   border-radius: 7px;
+  background: #f7f7f5;
 }
 
 .website-ui {
@@ -486,6 +488,7 @@ body.service-modal-open {
   width: 100%;
   aspect-ratio: 9 / 16;
   object-fit: cover;
+  object-position: left center;
   border-radius: 11px;
 }
 
