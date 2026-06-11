@@ -889,6 +889,7 @@ const initServiceModals = () => {
 
   const modal = document.createElement("section");
   modal.className = "service-modal";
+  modal.id = "service-details-modal";
   modal.setAttribute("aria-hidden", "true");
   modal.innerHTML = `
     <div class="service-modal-backdrop" data-service-modal-close></div>
@@ -1024,21 +1025,65 @@ const initServiceModals = () => {
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("service-modal-open");
+    activeTrigger?.setAttribute("aria-expanded", "false");
     activeTrigger?.focus();
   };
 
   const openModal = (trigger) => {
+    if (modal.classList.contains("is-open")) return;
     activeTrigger = trigger;
     renderModal(trigger.dataset.serviceModal);
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("service-modal-open");
+    trigger.setAttribute("aria-expanded", "true");
     dialog.scrollTop = 0;
     closeButton.focus();
   };
 
   triggers.forEach((trigger) => {
-    trigger.addEventListener("click", () => openModal(trigger));
+    trigger.setAttribute("aria-controls", modal.id);
+    trigger.setAttribute("aria-expanded", "false");
+
+    let touchStart = null;
+    let handledTouchAt = 0;
+
+    trigger.addEventListener(
+      "pointerdown",
+      (event) => {
+        if (event.pointerType !== "touch") return;
+        touchStart = {
+          x: event.clientX,
+          y: event.clientY,
+          time: performance.now()
+        };
+      },
+      { passive: true }
+    );
+
+    trigger.addEventListener(
+      "pointerup",
+      (event) => {
+        if (event.pointerType !== "touch" || !touchStart) return;
+        const distance = Math.hypot(event.clientX - touchStart.x, event.clientY - touchStart.y);
+        const duration = performance.now() - touchStart.time;
+        touchStart = null;
+        if (distance > 12 || duration > 700) return;
+
+        handledTouchAt = performance.now();
+        openModal(trigger);
+      },
+      { passive: true }
+    );
+
+    trigger.addEventListener("pointercancel", () => {
+      touchStart = null;
+    });
+
+    trigger.addEventListener("click", () => {
+      if (performance.now() - handledTouchAt < 750) return;
+      openModal(trigger);
+    });
     trigger.addEventListener("keydown", (event) => {
       if (event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
