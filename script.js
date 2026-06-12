@@ -878,6 +878,11 @@ const initServiceModals = () => {
           <div class="mockup-browser"><i></i><i></i><i></i><span>${item.title}</span></div>
           <img src="${item.image}" alt="${item.alt}" width="1439" height="900" loading="lazy" decoding="async" />
         </div>
+        <div class="mobile-mockup" aria-label="${item.title} auf einem Smartphone">
+          <span class="mobile-mockup-speaker" aria-hidden="true"></span>
+          <img src="${item.image}" alt="" width="1439" height="900" loading="lazy" decoding="async" />
+          <span class="mobile-mockup-home" aria-hidden="true"></span>
+        </div>
       </div>
       <div class="service-example-copy">
         <span class="service-example-index">Website-Konzept</span>

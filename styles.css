@@ -243,9 +243,15 @@ body.service-modal-open {
   background-size: auto, 24px 24px, 24px 24px;
 }
 
+.website-mockups {
+  gap: 3%;
+  padding: 22px;
+}
+
 .desktop-mockup {
   position: relative;
-  width: 92%;
+  flex: 0 0 78%;
+  width: 78%;
   padding: 7px;
   border-radius: 13px;
   background: #252b34;
@@ -282,6 +288,48 @@ body.service-modal-open {
   object-fit: contain;
   border-radius: 7px;
   background: #f7f7f5;
+}
+
+.mobile-mockup {
+  position: relative;
+  flex: 0 0 18%;
+  width: 18%;
+  aspect-ratio: 9 / 18;
+  overflow: hidden;
+  border: clamp(4px, 0.55vw, 7px) solid #252b34;
+  border-radius: clamp(14px, 1.7vw, 22px);
+  background: #f7f7f5;
+  box-shadow: 0 20px 46px rgba(31, 35, 42, 0.2);
+}
+
+.mobile-mockup > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.mobile-mockup-speaker,
+.mobile-mockup-home {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  border-radius: 999px;
+  background: #252b34;
+  transform: translateX(-50%);
+}
+
+.mobile-mockup-speaker {
+  top: 4px;
+  width: 34%;
+  height: clamp(3px, 0.42vw, 5px);
+}
+
+.mobile-mockup-home {
+  bottom: 4px;
+  width: 28%;
+  height: clamp(2px, 0.34vw, 4px);
 }
 
 .website-ui {
