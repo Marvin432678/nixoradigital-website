@@ -837,6 +837,90 @@ const SERVICE_MODAL_DATA = {
       { title: "Fitnessstudio", areas: ["Mitglieder", "Verträge", "Zahlungen"], kpis: [["Mitglieder", "1.248"], ["Verträge", "96% aktiv"], ["Monatsumsatz", "+12%"]], bars: [56, 64, 72, 78, 90] },
       { title: "B2B Vertrieb", areas: ["Pipeline", "Umsatzübersicht", "Follow-Ups"], kpis: [["Pipeline", "€ 184k"], ["Abschlussrate", "31%"], ["Follow-Ups", "18 offen"]], bars: [38, 52, 70, 84, 76] }
     ]
+  },
+  email: {
+    eyebrow: "E-Mail-Prozesse",
+    title: "Kommunikation, die automatisch den richtigen nächsten Schritt auslöst.",
+    intro: "Strukturierte E-Mail-Abläufe verbinden Anfragen, Teams und Systeme ohne unnötige manuelle Übergaben.",
+    type: "solution",
+    items: [{
+      title: "Intelligente Kontaktstrecken",
+      label: "Kommunikation",
+      visual: "email",
+      description: "Wir entwickeln nachvollziehbare E-Mail-Prozesse vom ersten Kontakt bis zur persönlichen Übergabe.",
+      benefits: ["Schnellere Reaktionszeiten", "Konsistente Kundenkommunikation", "Weniger manuelle Follow-ups"],
+      cases: ["Anfragebestätigungen", "Angebotsnachverfolgung", "Termin- und Statusmeldungen"]
+    }]
+  },
+  consulting: {
+    eyebrow: "Digitale Beratung",
+    title: "Klare Entscheidungen vor teuren Investitionen.",
+    intro: "Wir bewerten Ziele, Systeme und Prozesse und entwickeln daraus eine umsetzbare digitale Priorisierung.",
+    type: "solution",
+    items: [{
+      title: "Strategie mit Umsetzungsperspektive",
+      label: "Beratung",
+      visual: "strategy",
+      description: "Statt isolierter Tools entsteht ein belastbarer Plan, der Aufwand, Nutzen und Abhängigkeiten sichtbar macht.",
+      benefits: ["Klare Prioritäten", "Technologie passend zum Bedarf", "Realistische Umsetzungsschritte"],
+      cases: ["Digitalisierungs-Roadmaps", "Systemauswahl", "Prozess- und Potenzialanalyse"]
+    }]
+  },
+  projects: {
+    eyebrow: "Projektvermittlung",
+    title: "Die richtigen Spezialisten für anspruchsvolle Vorhaben.",
+    intro: "NIXORA DIGITAL bündelt Bedarf, Auswahl und Koordination über einen zentralen Ansprechpartner.",
+    type: "solution",
+    items: [{
+      title: "Koordinierte Projektbesetzung",
+      label: "Projektsteuerung",
+      visual: "projects",
+      description: "Wir strukturieren das Vorhaben, identifizieren passende Kompetenzen und halten die Beteiligten auf ein gemeinsames Ergebnis ausgerichtet.",
+      benefits: ["Passende Expertise", "Weniger Abstimmungsaufwand", "Klare Verantwortlichkeiten"],
+      cases: ["Digitale Projekte", "Technische Umsetzungen", "Interdisziplinäre Projektteams"]
+    }]
+  },
+  procurement: {
+    eyebrow: "Materialbeschaffung",
+    title: "Ressourcen und Lieferwege passend zum Projekt organisiert.",
+    intro: "Wir unterstützen bei Recherche, Auswahl und Koordination geeigneter Materialien und Bezugsquellen.",
+    type: "solution",
+    items: [{
+      title: "Strukturierte Beschaffung",
+      label: "Ressourcen",
+      visual: "procurement",
+      description: "Anforderungen, Anbieter und Lieferwege werden transparent zusammengeführt und auf das Projekt abgestimmt.",
+      benefits: ["Vergleichbare Optionen", "Koordinierte Lieferketten", "Mehr Transparenz bei Verfügbarkeit"],
+      cases: ["Projektmaterialien", "Technische Komponenten", "Spezialisierte Ressourcen"]
+    }]
+  },
+  optimization: {
+    eyebrow: "Prozessoptimierung",
+    title: "Weniger Reibung. Klarere Abläufe. Bessere Wirtschaftlichkeit.",
+    intro: "Bestehende Prozesse werden sichtbar gemacht, vereinfacht und sinnvoll mit Systemen oder Partnern verbunden.",
+    type: "solution",
+    items: [{
+      title: "Vom Ist-Prozess zum klaren Ablauf",
+      label: "Optimierung",
+      visual: "optimization",
+      description: "Wir identifizieren Medienbrüche, unnötige Schleifen und manuelle Engpässe und entwickeln eine praktikable Zielstruktur.",
+      benefits: ["Kürzere Durchlaufzeiten", "Weniger Fehlerquellen", "Klare Zuständigkeiten"],
+      cases: ["Anfrage- und Angebotsprozesse", "Interne Übergaben", "Wiederkehrende Verwaltungsabläufe"]
+    }]
+  },
+  network: {
+    eyebrow: "Partnernetzwerk",
+    title: "Kompetenzen verbinden, ohne neue Komplexität zu schaffen.",
+    intro: "Wir stellen für jedes Vorhaben ein passendes Netzwerk aus digitalen, technischen und operativen Partnern zusammen.",
+    type: "solution",
+    items: [{
+      title: "Ein Netzwerk. Ein Ansprechpartner.",
+      label: "Partnerschaften",
+      visual: "network",
+      description: "Unternehmen erhalten Zugang zu passenden Experten, während NIXORA DIGITAL Auswahl, Kommunikation und Zusammenspiel koordiniert.",
+      benefits: ["Geprüfte Kompetenzen", "Flexible Projektteams", "Zentrale Koordination"],
+      cases: ["Spezialistenvermittlung", "Umsetzungspartner", "Branchenübergreifende Kooperationen"]
+    }]
   }
 };
 
@@ -960,6 +1044,32 @@ const initServiceModals = () => {
     </article>
   `;
 
+  const renderSolution = (item) => `
+    <article class="service-example solution-example">
+      <div class="solution-visual solution-visual-${item.visual}" aria-hidden="true">
+        <span class="solution-visual-label">${item.label}</span>
+        <div class="solution-hub"><i></i><strong>NIXORA</strong><small>Zentrale Koordination</small></div>
+        <div class="solution-node solution-node-a"><i></i><span>${item.cases[0]}</span></div>
+        <div class="solution-node solution-node-b"><i></i><span>${item.cases[1]}</span></div>
+        <div class="solution-node solution-node-c"><i></i><span>${item.cases[2]}</span></div>
+        <svg viewBox="0 0 560 360" preserveAspectRatio="none">
+          <path d="M280 180 L112 82" />
+          <path d="M280 180 L448 82" />
+          <path d="M280 180 L280 308" />
+        </svg>
+      </div>
+      <div class="service-example-copy">
+        <span class="service-example-index">${item.label}</span>
+        <h3>${item.title}</h3>
+        <p class="solution-description">${item.description}</p>
+        <strong class="solution-list-title">Vorteile</strong>
+        ${featureList(item.benefits)}
+        <strong class="solution-list-title">Anwendungsfälle</strong>
+        ${featureList(item.cases)}
+      </div>
+    </article>
+  `;
+
   const renderModal = (key) => {
     const data = SERVICE_MODAL_DATA[key];
     if (!data) return;
@@ -971,7 +1081,8 @@ const initServiceModals = () => {
       website: renderWebsite,
       chatbot: renderChatbot,
       workflow: renderWorkflow,
-      crm: renderCrm
+      crm: renderCrm,
+      solution: renderSolution
     }[data.type];
 
     content.className = `service-modal-content ${data.type}-modal-content`;
