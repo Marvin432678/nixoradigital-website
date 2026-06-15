@@ -853,17 +853,17 @@ const SERVICE_MODAL_DATA = {
     }]
   },
   consulting: {
-    eyebrow: "Digitale Beratung",
-    title: "Klare Entscheidungen vor teuren Investitionen.",
-    intro: "Wir bewerten Ziele, Systeme und Prozesse und entwickeln daraus eine umsetzbare digitale Priorisierung.",
+    eyebrow: "Strategieberatung",
+    title: "Klare Entscheidungen vor komplexen Vorhaben.",
+    intro: "Wir ordnen Ziele, Anforderungen und Abhängigkeiten und entwickeln daraus eine belastbare Priorisierung für die Umsetzung.",
     type: "solution",
     items: [{
       title: "Strategie mit Umsetzungsperspektive",
       label: "Beratung",
       visual: "strategy",
-      description: "Statt isolierter Tools entsteht ein belastbarer Plan, der Aufwand, Nutzen und Abhängigkeiten sichtbar macht.",
-      benefits: ["Klare Prioritäten", "Technologie passend zum Bedarf", "Realistische Umsetzungsschritte"],
-      cases: ["Digitalisierungs-Roadmaps", "Systemauswahl", "Prozess- und Potenzialanalyse"]
+      description: "Statt einzelner Maßnahmen entsteht ein belastbarer Plan, der Beteiligte, Ressourcen, Aufwand und Nutzen sichtbar macht.",
+      benefits: ["Klare Prioritäten", "Passende Lösungsbausteine", "Realistische Umsetzungsschritte"],
+      cases: ["Projekt-Roadmaps", "Lösungs- und Partnerauswahl", "Prozess- und Potenzialanalyse"]
     }]
   },
   projects: {

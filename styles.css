@@ -2173,6 +2173,112 @@ h3 {
   transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease, background 240ms ease;
 }
 
+.service-category-grid .service-category-card {
+  grid-column: span 4;
+  min-height: 310px;
+}
+
+.service-category-kicker {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin: -12px 0 10px;
+  color: #9b7427;
+  font-size: 0.62rem;
+  font-weight: 820;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.digital-system-links {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 18px;
+}
+
+.digital-system-links button {
+  border: 1px solid rgba(31, 41, 55, 0.09);
+  border-radius: 999px;
+  padding: 6px 9px;
+  color: #4b5563;
+  background: rgba(255, 255, 255, 0.78);
+  font-size: 0.66rem;
+  font-weight: 740;
+  cursor: pointer;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.digital-system-links button:hover {
+  border-color: rgba(193, 152, 61, 0.38);
+  color: #8d681d;
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+.coordination-values {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.coordination-values::before,
+.coordination-values::after,
+.coordination-values .metric-card::before,
+.coordination-values .metric-card::after {
+  display: none;
+}
+
+.coordination-values .metric-card {
+  min-height: 220px;
+  padding: 26px 20px;
+  text-align: left;
+}
+
+.coordination-values .metric-card > span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 28px;
+  place-items: center;
+  border-radius: 11px;
+  color: #fff;
+  background: linear-gradient(135deg, #b88d2d, #354158);
+  font-size: 0.66rem;
+  font-weight: 850;
+}
+
+.coordination-values .metric-card strong {
+  margin-bottom: 12px;
+  color: var(--ink);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  font-size: 1.08rem;
+  line-height: 1.2;
+}
+
+.coordination-values .metric-card p {
+  font-size: 0.83rem;
+  line-height: 1.55;
+}
+
+.icon-digital::before {
+  width: 27px;
+  height: 23px;
+  border: 2px solid var(--blue);
+  border-radius: 6px;
+  box-shadow: 7px 7px 0 -3px #fff, 7px 7px 0 -1px var(--gold);
+}
+
+.icon-digital::after {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 9px 0 0 var(--blue), 18px 0 0 var(--ink);
+  transform: translate(-8px, 6px);
+}
+
 .service-card-half {
   grid-column: span 6;
 }
@@ -2886,7 +2992,7 @@ h3 {
 
 .case-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -2910,11 +3016,17 @@ h3 {
 
 .case-card {
   position: relative;
+  grid-column: span 4;
   overflow: hidden;
   min-height: 300px;
   padding: 28px;
   transition: transform 240ms ease, box-shadow 240ms ease, background 240ms ease, border-color 240ms ease;
   transform: perspective(900px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg));
+}
+
+.case-card:nth-child(4),
+.case-card:nth-child(5) {
+  grid-column: span 6;
 }
 
 .case-card span {
@@ -4844,6 +4956,26 @@ textarea:focus-visible {
   }
 
   .service-card-half {
+    grid-column: auto;
+  }
+
+  .service-category-grid .service-category-card {
+    grid-column: auto;
+    min-height: 0;
+  }
+
+  .digital-system-links button {
+    min-height: 38px;
+    padding-inline: 12px;
+  }
+
+  .coordination-values {
+    grid-template-columns: 1fr;
+  }
+
+  .case-card,
+  .case-card:nth-child(4),
+  .case-card:nth-child(5) {
     grid-column: auto;
   }
 
