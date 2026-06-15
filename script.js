@@ -21,7 +21,7 @@ const sections = document.querySelectorAll("main section[id]");
 const revealItems = document.querySelectorAll(".reveal");
 const counters = document.querySelectorAll("[data-count]");
 const magneticItems = document.querySelectorAll(".magnetic");
-const tiltItems = document.querySelectorAll(".service-card, .metric-card, .case-card, .about-copy, .about-visual, .contact-form");
+const tiltItems = document.querySelectorAll(".service-card, .metric-card, .case-card, .about-copy, .contact-form");
 const form = document.querySelector("[data-form]");
 const formStatus = document.querySelector("[data-form-status]");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -134,6 +134,41 @@ const closeNavigation = () => {
 setHeaderState();
 window.addEventListener("scroll", requestHeaderState, { passive: true });
 
+const heroJourney = document.querySelector(".hero");
+let heroJourneyFrame = 0;
+
+const setHeroJourneyState = () => {
+  heroJourneyFrame = 0;
+  if (!heroJourney) return;
+
+  const desktopJourney = window.matchMedia("(min-width: 821px)").matches;
+  if (!desktopJourney || prefersReducedMotion) {
+    heroJourney.style.setProperty("--hero-progress", "1");
+    heroJourney.classList.add("story-core", "story-network", "story-lines", "story-result", "is-explained");
+    return;
+  }
+
+  const heroTop = heroJourney.offsetTop;
+  const journeyDistance = Math.max(heroJourney.offsetHeight - window.innerHeight, 1);
+  const progress = Math.min(Math.max((window.scrollY - heroTop) / journeyDistance, 0), 1);
+
+  heroJourney.style.setProperty("--hero-progress", progress.toFixed(3));
+  heroJourney.classList.toggle("story-core", progress >= 0.1);
+  heroJourney.classList.toggle("story-network", progress >= 0.24);
+  heroJourney.classList.toggle("story-lines", progress >= 0.38);
+  heroJourney.classList.toggle("story-result", progress >= 0.5);
+  heroJourney.classList.toggle("is-explained", progress >= 0.6);
+};
+
+const requestHeroJourneyState = () => {
+  if (heroJourneyFrame) return;
+  heroJourneyFrame = requestAnimationFrame(setHeroJourneyState);
+};
+
+setHeroJourneyState();
+window.addEventListener("scroll", requestHeroJourneyState, { passive: true });
+window.addEventListener("resize", requestHeroJourneyState, { passive: true });
+
 navToggle?.addEventListener("click", () => {
   const isOpen = document.body.classList.toggle("nav-open");
   navToggle.setAttribute("aria-expanded", String(isOpen));
@@ -183,7 +218,13 @@ const revealObserver = new IntersectionObserver(
 );
 
 revealItems.forEach((item, index) => {
-  item.style.transitionDelay = `${Math.min(index % 5, 4) * 65}ms`;
+  if (item.classList.contains("project-hub")) {
+    item.style.transitionDelay = "30ms";
+  } else if (item.classList.contains("hero-copy")) {
+    item.style.transitionDelay = "170ms";
+  } else {
+    item.style.transitionDelay = `${Math.min(index % 5, 4) * 65}ms`;
+  }
   revealObserver.observe(item);
 });
 
@@ -924,6 +965,224 @@ const SERVICE_MODAL_DATA = {
   }
 };
 
+const createTagModal = ({ eyebrow, title, intro, label, visual, description, benefits, cases }) => ({
+  eyebrow,
+  title,
+  intro,
+  type: "system",
+  items: [{
+    title,
+    label,
+    visual,
+    description,
+    benefits,
+    cases
+  }]
+});
+
+Object.assign(SERVICE_MODAL_DATA, {
+  "tag-experts": createTagModal({
+    eyebrow: "Projektvermittlung · Experten",
+    title: "Die passende Expertise für die konkrete Aufgabe.",
+    intro: "Ein strukturiertes Auswahlbild macht Kompetenzen, Verfügbarkeit und Projektfit vergleichbar.",
+    label: "Expertenauswahl",
+    visual: "experts",
+    description: "Wir übersetzen die Anforderung in ein klares Kompetenzprofil und koordinieren die Auswahl geeigneter Spezialisten.",
+    benefits: ["Klare Kompetenzkriterien", "Weniger Suchaufwand", "Passender Projektfit", "Zentral abgestimmte Auswahl"],
+    cases: ["Kompetenzprofil", "Shortlist geeigneter Experten", "Projektbezogene Besetzung"]
+  }),
+  "tag-partners": createTagModal({
+    eyebrow: "Projektvermittlung · Partner",
+    title: "Partnerstrukturen, die zum Vorhaben passen.",
+    intro: "Rollen, Verantwortlichkeiten und Schnittstellen werden vor dem Projektstart transparent geordnet.",
+    label: "Partnerstruktur",
+    visual: "partners",
+    description: "Wir verbinden Unternehmen mit geeigneten Umsetzungspartnern und schaffen eine klare Struktur für die Zusammenarbeit.",
+    benefits: ["Geeignete Partner", "Klare Rollen", "Verlässliche Übergaben", "Weniger Koordinationsaufwand"],
+    cases: ["Umsetzungspartner", "Spezialisierte Dienstleister", "Ergänzende Projektkompetenzen"]
+  }),
+  "tag-coordination": createTagModal({
+    eyebrow: "Projektvermittlung · Koordination",
+    title: "Ein klarer Takt für alle Beteiligten.",
+    intro: "Ein zentrales Koordinationsboard bündelt Aufgaben, Zuständigkeiten und nächste Entscheidungen.",
+    label: "Projektboard",
+    visual: "coordination",
+    description: "NIXORA DIGITAL hält Kommunikation, Abhängigkeiten und Fortschritt über einen Ansprechpartner zusammen.",
+    benefits: ["Zentrale Kommunikation", "Klare Zuständigkeiten", "Transparente Fortschritte", "Geordnete Entscheidungen"],
+    cases: ["Projekt-Kick-off", "Statussteuerung", "Übergabe zwischen Beteiligten"]
+  }),
+  "tag-delivery": createTagModal({
+    eyebrow: "Projektvermittlung · Umsetzung",
+    title: "Vom abgestimmten Konzept zum belastbaren Ergebnis.",
+    intro: "Die Umsetzungsansicht zeigt Arbeitspakete, Prüfungen und die kontrollierte Übergabe.",
+    label: "Umsetzung",
+    visual: "delivery",
+    description: "Wir begleiten die Realisierung, koordinieren offene Punkte und sichern die vereinbarten Ergebnisse ab.",
+    benefits: ["Klare Arbeitspakete", "Kontrollierte Übergaben", "Frühe Qualitätssicherung", "Nachvollziehbarer Abschluss"],
+    cases: ["Umsetzungsplanung", "Abnahme und Prüfung", "Optimierung nach Übergabe"]
+  }),
+  "tag-resources": createTagModal({
+    eyebrow: "Materialbeschaffung · Ressourcen",
+    title: "Benötigte Ressourcen zentral im Blick.",
+    intro: "Eine Materialübersicht verbindet Anforderungen, Mengen, Verfügbarkeit und Lieferstatus.",
+    label: "Ressourcenboard",
+    visual: "resources",
+    description: "Projektressourcen werden strukturiert erfasst, verglichen und passend zum Zeitplan organisiert.",
+    benefits: ["Transparenter Bedarf", "Klare Mengen und Fristen", "Vergleichbare Optionen", "Planbare Verfügbarkeit"],
+    cases: ["Materiallisten", "Technische Komponenten", "Projektbezogene Ressourcen"]
+  }),
+  "tag-suppliers": createTagModal({
+    eyebrow: "Materialbeschaffung · Lieferanten",
+    title: "Lieferanten objektiv und projektbezogen vergleichen.",
+    intro: "Ein Vergleichsdashboard ordnet Preis, Qualität, Verfügbarkeit und Lieferzeit.",
+    label: "Lieferantenvergleich",
+    visual: "suppliers",
+    description: "Wir strukturieren Anbieterinformationen und schaffen eine belastbare Grundlage für die Auswahl.",
+    benefits: ["Einheitliche Kriterien", "Transparente Angebote", "Weniger Rechercheaufwand", "Bessere Entscheidungsbasis"],
+    cases: ["Anbietervergleich", "Lieferzeitprüfung", "Qualitäts- und Konditionsvergleich"]
+  }),
+  "tag-demand": createTagModal({
+    eyebrow: "Materialbeschaffung · Bedarf",
+    title: "Bedarf präzise erfassen, bevor beschafft wird.",
+    intro: "Die Bedarfsansicht bringt Spezifikation, Menge, Termin und Priorität in eine klare Reihenfolge.",
+    label: "Bedarfsanalyse",
+    visual: "demand",
+    description: "Wir konkretisieren, welche Ressourcen tatsächlich benötigt werden und welche Abhängigkeiten bestehen.",
+    benefits: ["Klare Spezifikationen", "Realistische Mengen", "Priorisierte Beschaffung", "Weniger Fehlbestellungen"],
+    cases: ["Anforderungsaufnahme", "Mengenplanung", "Termin- und Prioritätsabgleich"]
+  }),
+  "tag-organization": createTagModal({
+    eyebrow: "Materialbeschaffung · Organisation",
+    title: "Beschaffung ohne unklare Übergaben.",
+    intro: "Ein Organisationsboard verbindet Anfrage, Freigabe, Bestellung und Lieferung.",
+    label: "Beschaffungsfluss",
+    visual: "organization",
+    description: "Wir koordinieren den Beschaffungsprozess und halten Status, Verantwortlichkeiten und nächste Schritte transparent.",
+    benefits: ["Geordnete Freigaben", "Klare Verantwortliche", "Aktueller Lieferstatus", "Weniger Abstimmungsschleifen"],
+    cases: ["Bestellkoordination", "Statusverfolgung", "Liefer- und Übergabeplanung"]
+  }),
+  "tag-workflows": createTagModal({
+    eyebrow: "Prozessoptimierung · Abläufe",
+    title: "Abläufe sichtbar machen und sinnvoll neu ordnen.",
+    intro: "Eine Prozesskarte zeigt Schritte, Übergaben und unnötige Schleifen auf einen Blick.",
+    label: "Prozesskarte",
+    visual: "workflows",
+    description: "Wir dokumentieren den Ist-Ablauf und entwickeln daraus einen klaren, praktikablen Zielprozess.",
+    benefits: ["Transparente Prozessschritte", "Klare Übergaben", "Weniger Schleifen", "Einheitliche Arbeitsweise"],
+    cases: ["Ist-Prozess", "Zielprozess", "Verantwortungs- und Übergabepunkte"]
+  }),
+  "tag-bottlenecks": createTagModal({
+    eyebrow: "Prozessoptimierung · Engpässe",
+    title: "Engpässe erkennen, bevor sie Ergebnisse bremsen.",
+    intro: "Das Engpass-Dashboard markiert Wartezeiten, Rückfragen und überlastete Schnittstellen.",
+    label: "Engpassanalyse",
+    visual: "bottlenecks",
+    description: "Wir identifizieren die Stellen, an denen Zeit, Informationen oder Verantwortlichkeiten verloren gehen.",
+    benefits: ["Wartezeiten sichtbar", "Ursachen statt Symptome", "Priorisierte Maßnahmen", "Schnellere Durchläufe"],
+    cases: ["Freigabeschleifen", "Informationslücken", "Überlastete Übergaben"]
+  }),
+  "tag-structure": createTagModal({
+    eyebrow: "Prozessoptimierung · Struktur",
+    title: "Klare Strukturen für verlässliche Zusammenarbeit.",
+    intro: "Eine Rollen- und Prozessmatrix verbindet Aufgaben mit den richtigen Verantwortlichen.",
+    label: "Strukturmodell",
+    visual: "structure",
+    description: "Wir schaffen eine nachvollziehbare Ordnung für Rollen, Informationen und wiederkehrende Abläufe.",
+    benefits: ["Klare Rollen", "Definierte Standards", "Nachvollziehbare Ablage", "Weniger Rückfragen"],
+    cases: ["Rollenmatrix", "Prozessstandards", "Informations- und Dokumentenstruktur"]
+  }),
+  "tag-efficiency": createTagModal({
+    eyebrow: "Prozessoptimierung · Effizienz",
+    title: "Mehr Ergebnis mit weniger Reibungsverlust.",
+    intro: "Das Effizienzboard stellt Aufwand, Durchlaufzeit und Verbesserungspotenziale gegenüber.",
+    label: "Effizienzboard",
+    visual: "efficiency",
+    description: "Wir priorisieren Maßnahmen, die Abläufe vereinfachen und einen nachvollziehbaren wirtschaftlichen Nutzen erzeugen.",
+    benefits: ["Weniger manueller Aufwand", "Kürzere Durchlaufzeiten", "Bessere Ressourcennutzung", "Messbare Verbesserungen"],
+    cases: ["Aufwandsvergleich", "Automatisierungspotenziale", "Priorisierte Verbesserungsmaßnahmen"]
+  }),
+  "tag-analysis": createTagModal({
+    eyebrow: "Strategieberatung · Analyse",
+    title: "Die richtige Lösung beginnt mit einer klaren Analyse.",
+    intro: "Ein Analyse-Dashboard ordnet Ziele, Ausgangslage, Risiken und Abhängigkeiten.",
+    label: "Analyse",
+    visual: "analysis",
+    description: "Wir schaffen ein gemeinsames Verständnis der Aufgabe, bevor Ressourcen oder Budgets gebunden werden.",
+    benefits: ["Klare Ausgangslage", "Relevante Risiken", "Sichtbare Abhängigkeiten", "Gemeinsames Zielbild"],
+    cases: ["Anforderungsanalyse", "Potenzialbewertung", "Risiko- und Umfeldanalyse"]
+  }),
+  "tag-priorities": createTagModal({
+    eyebrow: "Strategieberatung · Prioritäten",
+    title: "Wichtige Schritte zuerst.",
+    intro: "Eine Prioritätenmatrix bewertet Wirkung, Aufwand, Dringlichkeit und Abhängigkeiten.",
+    label: "Prioritätenmatrix",
+    visual: "priorities",
+    description: "Wir bringen mögliche Maßnahmen in eine belastbare Reihenfolge und verhindern parallele Einzelaktionen.",
+    benefits: ["Fokus auf Wirkung", "Realistische Reihenfolge", "Transparente Abwägungen", "Bessere Ressourcennutzung"],
+    cases: ["Maßnahmenbewertung", "Quick Wins", "Abhängige Projektbausteine"]
+  }),
+  "tag-roadmap": createTagModal({
+    eyebrow: "Strategieberatung · Fahrplan",
+    title: "Ein realistischer Fahrplan vom Start bis zum Ergebnis.",
+    intro: "Die Roadmap verbindet Phasen, Meilensteine, Beteiligte und Entscheidungen.",
+    label: "Roadmap",
+    visual: "roadmap",
+    description: "Wir übersetzen die Strategie in klar terminierte Schritte mit nachvollziehbaren Ergebnissen.",
+    benefits: ["Klare Projektphasen", "Verbindliche Meilensteine", "Sichtbare Abhängigkeiten", "Planbare Entscheidungen"],
+    cases: ["90-Tage-Fahrplan", "Projektphasen", "Meilenstein- und Ressourcenplanung"]
+  }),
+  "tag-decisions": createTagModal({
+    eyebrow: "Strategieberatung · Entscheidungen",
+    title: "Entscheidungen auf einer klaren Grundlage treffen.",
+    intro: "Ein Entscheidungsboard stellt Optionen, Auswirkungen und nächste Schritte übersichtlich gegenüber.",
+    label: "Entscheidungsboard",
+    visual: "decisions",
+    description: "Wir bereiten komplexe Optionen so auf, dass Verantwortliche sicher und nachvollziehbar entscheiden können.",
+    benefits: ["Vergleichbare Optionen", "Sichtbare Konsequenzen", "Klare Empfehlung", "Dokumentierte Entscheidung"],
+    cases: ["Make-or-buy", "Partner- und Systemauswahl", "Budget- und Umsetzungsvarianten"]
+  }),
+  "tag-specialists": createTagModal({
+    eyebrow: "Partnernetzwerk · Spezialisten",
+    title: "Spezialisten genau dort einsetzen, wo sie Wirkung entfalten.",
+    intro: "Ein Kompetenznetz zeigt Fachgebiete, Rollen und den passenden Einsatz im Projekt.",
+    label: "Kompetenznetz",
+    visual: "specialists",
+    description: "Wir finden spezialisierte Kompetenzen und integrieren sie gezielt in das Gesamtvorhaben.",
+    benefits: ["Gezielte Fachkompetenz", "Flexible Ergänzung", "Klarer Aufgabenbereich", "Koordinierte Einbindung"],
+    cases: ["Technische Spezialisten", "Digitale Experten", "Operative Fachpartner"]
+  }),
+  "tag-industries": createTagModal({
+    eyebrow: "Partnernetzwerk · Branchen",
+    title: "Branchenkenntnis mit passender Umsetzungskompetenz verbinden.",
+    intro: "Die Branchenansicht ordnet Anforderungen, Standards und geeignete Partnerfelder.",
+    label: "Branchenmatrix",
+    visual: "industries",
+    description: "Wir berücksichtigen branchenspezifische Rahmenbedingungen bei Auswahl und Koordination der Beteiligten.",
+    benefits: ["Relevantes Branchenverständnis", "Passende Erfahrungswerte", "Berücksichtigte Standards", "Kürzere Einarbeitung"],
+    cases: ["Handwerk und Bau", "Immobilien und Dienstleistung", "B2B und operative Projekte"]
+  }),
+  "tag-contacts": createTagModal({
+    eyebrow: "Partnernetzwerk · Kontakte",
+    title: "Relevante Kontakte statt unübersichtlicher Anbietersuche.",
+    intro: "Ein Kontaktboard bündelt Ansprechpartner, Kompetenzen und den aktuellen Abstimmungsstatus.",
+    label: "Kontaktnetz",
+    visual: "contacts",
+    description: "Unternehmen erhalten Zugang zu passenden Kontakten, ohne jede Verbindung selbst aufbauen und steuern zu müssen.",
+    benefits: ["Kürzere Suchwege", "Direkte Ansprechpartner", "Geordnete Kommunikation", "Zentraler Überblick"],
+    cases: ["Erstkontakt", "Partneranfrage", "Koordinierte Abstimmung"]
+  }),
+  "tag-quality": createTagModal({
+    eyebrow: "Partnernetzwerk · Qualität",
+    title: "Qualität durch klare Kriterien und kontrollierte Ergebnisse.",
+    intro: "Ein Qualitätsboard verbindet Auswahlkriterien, Prüfpunkte und Abnahme.",
+    label: "Qualitätssicherung",
+    visual: "quality",
+    description: "Wir definieren Erwartungen vorab und prüfen Ergebnisse entlang nachvollziehbarer Qualitätsmerkmale.",
+    benefits: ["Klare Auswahlkriterien", "Definierte Prüfpunkte", "Transparente Abnahme", "Nachvollziehbare Ergebnisse"],
+    cases: ["Partnerbewertung", "Zwischenprüfung", "Ergebnis- und Qualitätskontrolle"]
+  })
+});
+
 const initServiceModals = () => {
   const triggers = document.querySelectorAll("[data-service-modal]");
   if (!triggers.length) return;
@@ -1070,6 +1329,138 @@ const initServiceModals = () => {
     </article>
   `;
 
+  const visualTemplates = {
+    experts: (item) => `
+      <div class="visual-profile-grid">
+        ${["Strategie", "Technik", "Umsetzung"].map((role, index) => `
+          <article class="${index === 1 ? "is-selected" : ""}">
+            <i>${String(index + 1).padStart(2, "0")}</i>
+            <strong>${role}</strong>
+            <small>${["Analyse & Konzeption", "Systemkompetenz", "Projektsteuerung"][index]}</small>
+            <span>${[86, 96, 89][index]}% Match</span>
+          </article>`).join("")}
+      </div>`,
+    partners: (item) => `
+      <div class="visual-network-map">
+        <strong>NIXORA</strong>
+        ${item.cases.map((entry, index) => `<span class="network-point point-${index + 1}"><i></i>${entry}</span>`).join("")}
+        <b class="network-line line-1"></b><b class="network-line line-2"></b><b class="network-line line-3"></b>
+      </div>`,
+    coordination: () => `
+      <div class="visual-kanban">
+        ${[["Geplant", "Anforderungen", "Rollen"], ["In Arbeit", "Partnerauswahl", "Abstimmung"], ["Geprüft", "Freigabe", "Übergabe"]].map((column, index) => `
+          <section><header><span>${column[0]}</span><i>${index + 2}</i></header><article>${column[1]}<small>${index === 2 ? "Erledigt" : "Nächster Schritt"}</small></article><article>${column[2]}<small>Verantwortlich</small></article></section>`).join("")}
+      </div>`,
+    delivery: () => `
+      <div class="visual-timeline">
+        ${["Konzept", "Umsetzung", "Qualitätscheck", "Ergebnis"].map((step, index) => `<article class="${index < 3 ? "is-complete" : ""}"><i>${index + 1}</i><div><strong>${step}</strong><small>${["Freigegeben", "Im Plan", "Dokumentiert", "Bereit zur Übergabe"][index]}</small></div></article>`).join("")}
+      </div>`,
+    resources: () => `
+      <div class="visual-inventory">
+        <header><span>Ressource</span><span>Menge</span><span>Status</span></header>
+        ${[["Komponente A", "120", "Verfügbar"], ["Material B", "48", "Reserviert"], ["System C", "12", "In Prüfung"]].map((row, index) => `<article><strong>${row[0]}</strong><span>${row[1]}</span><i class="state-${index}">${row[2]}</i></article>`).join("")}
+      </div>`,
+    suppliers: () => `
+      <div class="visual-supplier-table">
+        <header><span>Anbieter</span><span>Qualität</span><span>Lieferzeit</span><span>Fit</span></header>
+        ${[["Nord", "A", "6 Tage", "94%"], ["Hanse", "A", "9 Tage", "88%"], ["ProLine", "B+", "5 Tage", "82%"]].map((row, index) => `<article class="${index === 0 ? "is-best" : ""}">${row.map((cell, cellIndex) => cellIndex === 0 ? `<strong>${cell}</strong>` : `<span>${cell}</span>`).join("")}</article>`).join("")}
+      </div>`,
+    demand: () => `
+      <div class="visual-requirements">
+        <div><span>Projektziel</span><strong>Kapazität erweitern</strong></div>
+        <section><label>Spezifikation</label><b style="--value:88%"></b><small>88%</small></section>
+        <section><label>Menge</label><b style="--value:72%"></b><small>72%</small></section>
+        <section><label>Termin</label><b style="--value:64%"></b><small>64%</small></section>
+        <section><label>Priorität</label><b style="--value:94%"></b><small>94%</small></section>
+      </div>`,
+    organization: () => `
+      <div class="visual-procurement-flow">
+        ${["Anfrage", "Freigabe", "Bestellung", "Lieferung"].map((step, index) => `<article class="${index < 3 ? "is-done" : ""}"><i>${String(index + 1).padStart(2, "0")}</i><strong>${step}</strong><small>${index < 3 ? "Bestätigt" : "Geplant"}</small></article>${index < 3 ? "<b></b>" : ""}`).join("")}
+      </div>`,
+    workflows: () => `
+      <div class="visual-before-after">
+        <section><span>Vorher</span>${["Anfrage", "Rückfrage", "Warten", "Freigabe"].map(x => `<i>${x}</i>`).join("")}</section>
+        <b>→</b>
+        <section class="is-after"><span>Optimiert</span>${["Anfrage", "Prüfung", "Ergebnis"].map(x => `<i>${x}</i>`).join("")}</section>
+      </div>`,
+    bottlenecks: () => `
+      <div class="visual-bottleneck">
+        <header><span>Prozessanalyse</span><strong>3 Engpässe erkannt</strong></header>
+        ${[42, 87, 54, 92, 48].map((value, index) => `<article class="${value > 80 ? "is-critical" : ""}"><span>Schritt ${index + 1}</span><b style="--value:${value}%"></b><small>${value} min</small></article>`).join("")}
+      </div>`,
+    structure: () => `
+      <div class="visual-swimlane">
+        ${["Kunde", "NIXORA", "Partner"].map((lane, index) => `<section><strong>${lane}</strong>${["Anfrage", "Prüfung", "Übergabe"].map((task, taskIndex) => `<i class="${taskIndex === index ? "is-active" : ""}">${task}</i>`).join("")}</section>`).join("")}
+      </div>`,
+    efficiency: () => `
+      <div class="visual-efficiency">
+        <section><span>Durchlaufzeit</span><strong>-38%</strong><b><i style="width:62%"></i></b></section>
+        <section><span>Manueller Aufwand</span><strong>-54%</strong><b><i style="width:46%"></i></b></section>
+        <section><span>Prozessqualität</span><strong>+29%</strong><b><i style="width:89%"></i></b></section>
+        <div class="efficiency-chart">${[38,48,44,66,72,84].map(v=>`<i style="height:${v}%"></i>`).join("")}</div>
+      </div>`,
+    analysis: () => `
+      <div class="visual-analysis-dashboard">
+        <section><span>Potenzial</span><strong>82%</strong></section><section><span>Risiko</span><strong>Niedrig</strong></section><section><span>Komplexität</span><strong>Mittel</strong></section>
+        <div>${[52,68,61,79,88].map(v=>`<i style="height:${v}%"></i>`).join("")}</div>
+      </div>`,
+    priorities: () => `
+      <div class="visual-priority-matrix">
+        <span class="axis-y">Wirkung</span><span class="axis-x">Aufwand</span>
+        <i class="matrix-dot dot-a">A</i><i class="matrix-dot dot-b">B</i><i class="matrix-dot dot-c">C</i><i class="matrix-dot dot-d">D</i>
+        <strong>Quick Wins</strong>
+      </div>`,
+    roadmap: () => `
+      <div class="visual-roadmap">
+        ${[["Q1", "Analyse"], ["Q2", "Aufbau"], ["Q3", "Umsetzung"], ["Q4", "Optimierung"]].map((phase,index)=>`<article><span>${phase[0]}</span><i></i><strong>${phase[1]}</strong><small>${index === 3 ? "Ergebnis" : "Meilenstein"}</small></article>`).join("")}
+      </div>`,
+    decisions: () => `
+      <div class="visual-decision-tree">
+        <article class="decision-root"><strong>Anforderung</strong><small>Welche Lösung passt?</small></article>
+        <b class="decision-branch branch-left"></b><b class="decision-branch branch-right"></b>
+        <article class="decision-option option-left"><strong>Option A</strong><small>Schnell & fokussiert</small></article>
+        <article class="decision-option option-right"><strong>Option B</strong><small>Skalierbar & modular</small></article>
+        <span>Empfehlung: Option B</span>
+      </div>`,
+    specialists: (item) => visualTemplates.partners(item),
+    industries: () => `
+      <div class="visual-industry-grid">
+        ${[["HB","Handwerk & Bau"],["IM","Immobilien"],["B2B","B2B Services"],["OP","Operative Projekte"]].map((sector,index)=>`<article class="${index===0?"is-active":""}"><i>${sector[0]}</i><strong>${sector[1]}</strong><small>${[18,12,24,9][index]} Partner</small></article>`).join("")}
+      </div>`,
+    contacts: () => `
+      <div class="visual-contact-map">
+        <article class="contact-center"><i>N</i><strong>NIXORA</strong></article>
+        ${[["AM","Anna M.","Strategie"],["TK","Tom K.","Technik"],["SL","Sara L.","Umsetzung"]].map((contact,index)=>`<article class="contact-node contact-${index+1}"><i>${contact[0]}</i><div><strong>${contact[1]}</strong><small>${contact[2]}</small></div></article>`).join("")}
+        <b class="contact-line contact-line-1"></b><b class="contact-line contact-line-2"></b><b class="contact-line contact-line-3"></b>
+      </div>`,
+    quality: () => `
+      <div class="visual-quality-check">
+        <header><span>Qualitätsprüfung</span><strong>92 / 100</strong></header>
+        ${["Anforderungen erfüllt", "Dokumentation vollständig", "Übergabe geprüft", "Ergebnis freigegeben"].map((check,index)=>`<article><i>${index < 3 ? "✓" : "○"}</i><span>${check}</span><small>${index < 3 ? "Bestätigt" : "Finale Prüfung"}</small></article>`).join("")}
+      </div>`
+  };
+
+  const renderSystem = (item) => {
+    const renderVisual = visualTemplates[item.visual] || visualTemplates.analysis;
+    return `
+      <article class="service-example system-example">
+        <div class="nixora-system-visual visual-${item.visual}" aria-hidden="true">
+          <header><span>${item.label}</span><strong>NIXORA SYSTEM</strong><i></i></header>
+          <div class="nixora-system-canvas">${renderVisual(item)}</div>
+        </div>
+        <div class="service-example-copy">
+          <span class="service-example-index">${item.label}</span>
+          <h3>${item.title}</h3>
+          <p class="solution-description">${item.description}</p>
+          <strong class="solution-list-title">Vorteile</strong>
+          ${featureList(item.benefits)}
+          <strong class="solution-list-title">Beispiel</strong>
+          ${featureList(item.cases)}
+        </div>
+      </article>
+    `;
+  };
+
   const renderModal = (key) => {
     const data = SERVICE_MODAL_DATA[key];
     if (!data) return;
@@ -1082,7 +1473,8 @@ const initServiceModals = () => {
       chatbot: renderChatbot,
       workflow: renderWorkflow,
       crm: renderCrm,
-      solution: renderSolution
+      solution: renderSolution,
+      system: renderSystem
     }[data.type];
 
     content.className = `service-modal-content ${data.type}-modal-content`;
@@ -1119,6 +1511,7 @@ const initServiceModals = () => {
     trigger.addEventListener(
       "pointerdown",
       (event) => {
+        if (trigger.matches(".service-tags button, .digital-system-links button")) event.stopPropagation();
         if (event.pointerType !== "touch") return;
         touchStart = {
           x: event.clientX,
@@ -1132,6 +1525,7 @@ const initServiceModals = () => {
     trigger.addEventListener(
       "pointerup",
       (event) => {
+        if (trigger.matches(".service-tags button, .digital-system-links button")) event.stopPropagation();
         if (event.pointerType !== "touch" || !touchStart) return;
         const distance = Math.hypot(event.clientX - touchStart.x, event.clientY - touchStart.y);
         const duration = performance.now() - touchStart.time;
@@ -1148,11 +1542,13 @@ const initServiceModals = () => {
       touchStart = null;
     });
 
-    trigger.addEventListener("click", () => {
+    trigger.addEventListener("click", (event) => {
+      if (trigger.matches(".service-tags button, .digital-system-links button")) event.stopPropagation();
       if (performance.now() - handledTouchAt < 750) return;
       openModal(trigger);
     });
     trigger.addEventListener("keydown", (event) => {
+      if (trigger.matches(".service-tags button, .digital-system-links button")) event.stopPropagation();
       if (event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
       openModal(trigger);

@@ -17,7 +17,7 @@
       if (location.hash) history.replaceState(null, document.title, location.pathname + location.search);
     </script>
     <title>NIXORA DIGITAL - Lösungen, Partner und Projektkoordination</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=variant5story2" />
   </head>
   <body>
     <svg class="process-stream" viewBox="0 0 1440 3200" preserveAspectRatio="none" aria-hidden="true">
@@ -117,12 +117,12 @@
 
     <main>
       <section class="hero" id="start" aria-labelledby="hero-title">
-        <div class="hero-aura aura-blue" aria-hidden="true"></div>
-        <div class="hero-aura aura-gold" aria-hidden="true"></div>
-
         <div class="container hero-grid">
           <div class="hero-copy reveal">
-            <p class="eyebrow">NIXORA DIGITAL</p>
+            <div class="hero-positioning">
+              <span>NIXORA DIGITAL</span>
+              <small>Zentrale Projektkoordination</small>
+            </div>
             <h1 id="hero-title">
               <span>Komplexe Projekte.</span>
               <span>Klare Lösungen.</span>
@@ -132,6 +132,7 @@
               Wir analysieren Ihre Anforderungen, strukturieren das Vorhaben und koordinieren die passenden
               Experten, Systeme, Ressourcen und Partner bis zum Ergebnis.
             </p>
+            <p class="hero-promise"><i aria-hidden="true"></i> Von der ersten Anforderung bis zur geprüften Umsetzung.</p>
             <div class="hero-actions">
               <a class="btn btn-primary magnetic" href="#kontakt">Kostenlose Beratung</a>
               <a class="btn btn-secondary magnetic" href="#leistungen">System ansehen</a>
@@ -144,102 +145,69 @@
             </div>
           </div>
 
-          <div class="hero-system hero-coordination-hub reveal" aria-label="NIXORA DIGITAL als zentrale Schnittstelle zwischen Unternehmen und Lösungen">
-            <svg class="coordination-lines" viewBox="0 0 680 560" aria-hidden="true">
-              <defs>
-                <linearGradient id="coordinationLine" x1="0" x2="1" y1="0" y2="0">
-                  <stop offset="0" stop-color="#1F2937" stop-opacity=".18" />
-                  <stop offset=".5" stop-color="#D4AF37" stop-opacity=".7" />
-                  <stop offset="1" stop-color="#1F2937" stop-opacity=".18" />
-                </linearGradient>
-              </defs>
-              <g class="coordination-paths">
-                <path d="M170 128 C236 128 242 224 300 244" />
-                <path d="M170 245 L300 245" />
-                <path d="M170 362 C236 362 242 266 300 246" />
-                <path d="M380 245 C438 223 442 108 510 108" />
-                <path d="M380 245 C442 238 452 207 510 207" />
-                <path d="M380 245 C442 252 452 306 510 306" />
-                <path d="M380 245 C438 267 442 405 510 405" />
-                <path d="M340 300 L340 445" />
-              </g>
-              <g class="coordination-points">
-                <circle cx="170" cy="128" r="4" />
-                <circle cx="170" cy="245" r="4" />
-                <circle cx="170" cy="362" r="4" />
-                <circle cx="340" cy="245" r="7" />
-                <circle cx="510" cy="108" r="4" />
-                <circle cx="510" cy="207" r="4" />
-                <circle cx="510" cy="306" r="4" />
-                <circle cx="510" cy="405" r="4" />
-                <circle cx="340" cy="445" r="4" />
-              </g>
-            </svg>
-
-            <div class="coordination-group coordination-client">
-              <span class="coordination-group-label">Ihr Bedarf</span>
-              <article class="coordination-card">
-                <i class="coordination-icon coordination-icon-company" aria-hidden="true"></i>
-                <div><strong>Unternehmen</strong><small>Ziele und Verantwortung</small></div>
-              </article>
-              <article class="coordination-card">
-                <i class="coordination-icon coordination-icon-project" aria-hidden="true"></i>
-                <div><strong>Projektanfrage</strong><small>Vorhaben und Rahmen</small></div>
-              </article>
-              <article class="coordination-card">
-                <i class="coordination-icon coordination-icon-requirement" aria-hidden="true"></i>
-                <div><strong>Anforderungen</strong><small>Bedarf und Prioritäten</small></div>
-              </article>
+          <div class="hero-system project-hub" aria-label="NIXORA DIGITAL koordiniert Anforderungen, Partner, Systeme und Ressourcen bis zum Ergebnis">
+            <div class="hub-header">
+              <span>Projekt-Hub</span>
+              <small>Ein Ansprechpartner. Ein koordinierter Weg.</small>
             </div>
 
-            <article class="coordination-center">
-              <span>Zentrale Schnittstelle</span>
-              <strong>NIXORA DIGITAL</strong>
-              <p>Ein Ansprechpartner für komplexe Projekte</p>
-              <div>
-                <small>Auswahl</small>
-                <small>Steuerung</small>
-                <small>Qualität</small>
-              </div>
-            </article>
+            <div class="hub-layout">
+              <section class="hub-intake" aria-label="Ausgangspunkt">
+                <span class="hub-label">Ausgangspunkt</span>
+                <div class="hub-intake-stack">
+                  <article class="hub-panel hub-client-card">
+                    <i class="hub-symbol hub-symbol-client" aria-hidden="true"></i>
+                    <div><strong>Unternehmen</strong><small>Ziele & Verantwortung</small></div>
+                  </article>
+                  <article class="hub-panel">
+                    <i class="hub-symbol hub-symbol-requirement" aria-hidden="true"></i>
+                    <div><strong>Anforderung</strong><small>Bedarf & Prioritäten</small></div>
+                  </article>
+                  <article class="hub-panel">
+                    <i class="hub-symbol hub-symbol-project" aria-hidden="true"></i>
+                    <div><strong>Projekt</strong><small>Rahmen & Ergebnis</small></div>
+                  </article>
+                </div>
+              </section>
 
-            <div class="coordination-group coordination-solutions">
-              <span class="coordination-group-label">Passende Lösung</span>
-              <article class="coordination-card">
-                <i class="coordination-icon coordination-icon-it" aria-hidden="true"></i>
-                <div><strong>Experten</strong><small>Passende Kompetenzen</small></div>
+              <article class="hub-core">
+                <span>Zentrale Schnittstelle</span>
+                <strong>NIXORA DIGITAL</strong>
+                <p>Wir strukturieren, vermitteln und koordinieren.</p>
+                <div class="hub-core-steps">
+                  <small>Analyse</small>
+                  <small>Auswahl</small>
+                  <small>Steuerung</small>
+                </div>
               </article>
-              <article class="coordination-card">
-                <i class="coordination-icon coordination-icon-partner" aria-hidden="true"></i>
-                <div><strong>Systeme</strong><small>Digitale Werkzeuge</small></div>
-              </article>
-              <article class="coordination-card">
-                <i class="coordination-icon coordination-icon-material" aria-hidden="true"></i>
-                <div><strong>Ressourcen</strong><small>Materialien und Lieferwege</small></div>
-              </article>
-              <article class="coordination-card">
-                <i class="coordination-icon coordination-icon-delivery" aria-hidden="true"></i>
-                <div><strong>Partner</strong><small>Koordiniert bis zum Ergebnis</small></div>
-              </article>
+
+              <section class="hub-network" aria-label="Koordinierte Lösungsbausteine">
+                <span class="hub-label">Lösungsnetzwerk</span>
+                <div class="hub-network-grid">
+                  <article class="hub-panel"><i class="hub-symbol hub-symbol-expert" aria-hidden="true"></i><strong>Experten</strong></article>
+                  <article class="hub-panel"><i class="hub-symbol hub-symbol-system" aria-hidden="true"></i><strong>Systeme</strong></article>
+                  <article class="hub-panel"><i class="hub-symbol hub-symbol-resource" aria-hidden="true"></i><strong>Ressourcen</strong></article>
+                  <article class="hub-panel"><i class="hub-symbol hub-symbol-partner" aria-hidden="true"></i><strong>Partner</strong></article>
+                </div>
+                <article class="hub-panel hub-result">
+                  <i class="hub-symbol hub-symbol-result" aria-hidden="true"></i>
+                  <div><strong>Ergebnis</strong><small>Umgesetzt & geprüft</small></div>
+                </article>
+              </section>
             </div>
 
-            <div class="coordination-process" aria-label="Analyse, Koordination und Ergebnis">
-              <span><i>01</i><strong>Analyse</strong></span>
+            <div class="hub-flow" aria-label="Projektablauf">
+              <span><i>01</i>Analysieren</span>
               <b aria-hidden="true"></b>
-              <span><i>02</i><strong>Koordination</strong></span>
+              <span><i>02</i>Koordinieren</span>
               <b aria-hidden="true"></b>
-              <span><i>03</i><strong>Ergebnis</strong></span>
+              <span><i>03</i>Umsetzen</span>
             </div>
           </div>
         </div>
       </section>
 
       <section class="section services-section" id="leistungen" aria-labelledby="services-title">
-        <div class="section-dataflow services-flow" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
         <div class="container">
           <div class="section-heading reveal">
             <p class="eyebrow">Lösungsbereiche</p>
@@ -258,7 +226,6 @@
                 <button type="button" data-service-modal="crm">CRM</button>
                 <button type="button" data-service-modal="chatbots">KI-Chatbots</button>
                 <button type="button" data-service-modal="automations">Automatisierungen</button>
-                <button type="button" data-service-modal="email">E-Mail-Prozesse</button>
               </div>
             </article>
             <article class="service-card service-category-card reveal service-card-clickable" role="button" tabindex="0" aria-haspopup="dialog" data-service-modal="projects">
@@ -266,35 +233,60 @@
               <span class="service-category-kicker">Kompetenzen organisieren</span>
               <h3>Projektvermittlung</h3>
               <p>Wir identifizieren passende Spezialisten und koordinieren die Zusammenarbeit über einen zentralen Ansprechpartner.</p>
-              <span class="service-detail-hint">Details ansehen <i aria-hidden="true">→</i></span>
+              <div class="service-tags" aria-label="Experten, Partner, Koordination und Umsetzung">
+                <button type="button" data-service-modal="tag-experts">Experten</button>
+                <button type="button" data-service-modal="tag-partners">Partner</button>
+                <button type="button" data-service-modal="tag-coordination">Koordination</button>
+                <button type="button" data-service-modal="tag-delivery">Umsetzung</button>
+              </div>
             </article>
             <article class="service-card service-category-card reveal service-card-clickable" role="button" tabindex="0" aria-haspopup="dialog" data-service-modal="procurement">
               <span class="service-icon icon-material" aria-hidden="true"></span>
               <span class="service-category-kicker">Ressourcen verfügbar machen</span>
               <h3>Materialbeschaffung</h3>
               <p>Bezugsquellen, Materialien und Lieferwege werden transparent recherchiert und projektbezogen koordiniert.</p>
-              <span class="service-detail-hint">Details ansehen <i aria-hidden="true">→</i></span>
+              <div class="service-tags" aria-label="Ressourcen, Lieferanten, Bedarf und Organisation">
+                <button type="button" data-service-modal="tag-resources">Ressourcen</button>
+                <button type="button" data-service-modal="tag-suppliers">Lieferanten</button>
+                <button type="button" data-service-modal="tag-demand">Bedarf</button>
+                <button type="button" data-service-modal="tag-organization">Organisation</button>
+              </div>
             </article>
             <article class="service-card service-category-card reveal service-card-clickable" role="button" tabindex="0" aria-haspopup="dialog" data-service-modal="optimization">
               <span class="service-icon icon-process" aria-hidden="true"></span>
               <span class="service-category-kicker">Abläufe verbessern</span>
               <h3>Prozessoptimierung</h3>
               <p>Wir analysieren Übergaben und Engpässe und entwickeln klarere, wirtschaftlichere Abläufe.</p>
-              <span class="service-detail-hint">Details ansehen <i aria-hidden="true">→</i></span>
+              <div class="service-tags" aria-label="Abläufe, Engpässe, Struktur und Effizienz">
+                <button type="button" data-service-modal="tag-workflows">Abläufe</button>
+                <button type="button" data-service-modal="tag-bottlenecks">Engpässe</button>
+                <button type="button" data-service-modal="tag-structure">Struktur</button>
+                <button type="button" data-service-modal="tag-efficiency">Effizienz</button>
+              </div>
             </article>
             <article class="service-card service-category-card reveal service-card-clickable" role="button" tabindex="0" aria-haspopup="dialog" data-service-modal="consulting">
               <span class="service-icon icon-consult" aria-hidden="true"></span>
               <span class="service-category-kicker">Entscheidungen strukturieren</span>
               <h3>Strategieberatung</h3>
               <p>Anforderungen, Prioritäten und sinnvolle nächste Schritte werden vor der Umsetzung klar definiert.</p>
-              <span class="service-detail-hint">Details ansehen <i aria-hidden="true">→</i></span>
+              <div class="service-tags" aria-label="Analyse, Prioritäten, Fahrplan und Entscheidungen">
+                <button type="button" data-service-modal="tag-analysis">Analyse</button>
+                <button type="button" data-service-modal="tag-priorities">Prioritäten</button>
+                <button type="button" data-service-modal="tag-roadmap">Fahrplan</button>
+                <button type="button" data-service-modal="tag-decisions">Entscheidungen</button>
+              </div>
             </article>
             <article class="service-card service-category-card reveal service-card-clickable" role="button" tabindex="0" aria-haspopup="dialog" data-service-modal="network">
               <span class="service-icon icon-network" aria-hidden="true"></span>
               <span class="service-category-kicker">Partner gezielt verbinden</span>
               <h3>Partnernetzwerk</h3>
               <p>Passende Unternehmen und Experten werden für digitale, technische und operative Vorhaben zusammengeführt.</p>
-              <span class="service-detail-hint">Details ansehen <i aria-hidden="true">→</i></span>
+              <div class="service-tags" aria-label="Spezialisten, Branchen, Kontakte und Qualität">
+                <button type="button" data-service-modal="tag-specialists">Spezialisten</button>
+                <button type="button" data-service-modal="tag-industries">Branchen</button>
+                <button type="button" data-service-modal="tag-contacts">Kontakte</button>
+                <button type="button" data-service-modal="tag-quality">Qualität</button>
+              </div>
             </article>
           </div>
         </div>
@@ -334,6 +326,11 @@
               <strong>Umsetzung</strong>
               <p>Aus Anforderungen werden koordinierte Schritte und belastbare Ergebnisse.</p>
             </article>
+            <article class="metric-card reveal">
+              <span>06</span>
+              <strong>Ergebnisprüfung</strong>
+              <p>Wir prüfen, ob die Lösung die vereinbarten Ziele vollständig und nachvollziehbar erfüllt.</p>
+            </article>
           </div>
         </div>
       </section>
@@ -341,57 +338,38 @@
       <section class="section about-section" id="ueber-uns" aria-labelledby="about-title">
         <div class="container about-grid">
           <div class="about-visual reveal" aria-hidden="true">
-            <div class="mockup-shell">
-              <div class="mockup-top">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="project-flow-board">
+              <div class="project-flow-head">
+                <span>NIXORA DIGITAL</span>
+                <strong>Koordinierter Projektfluss</strong>
               </div>
-              <svg class="mockup-lines" viewBox="0 0 420 300">
-                <path id="mockPath1" d="M64 98 C138 44 248 52 334 96" />
-                <path id="mockPath2" d="M78 172 C155 214 250 212 340 166" />
-                <path id="mockPath3" d="M106 238 C165 162 250 162 314 238" />
-                <circle r="4" class="mock-dot">
-                  <animateMotion dur="6s" repeatCount="indefinite">
-                    <mpath href="#mockPath1" />
-                  </animateMotion>
-                </circle>
-                <circle r="3.5" class="mock-dot dot-delay">
-                  <animateMotion dur="7s" repeatCount="indefinite" begin="-2s">
-                    <mpath href="#mockPath2" />
-                  </animateMotion>
-                </circle>
-              </svg>
-              <div class="dashboard-title">
-                <small>NIXORA DIGITAL</small>
-                <strong>Project Hub</strong>
+              <div class="project-flow-steps">
+                <article>
+                  <i>01</i>
+                  <div><strong>Anforderung</strong><small>Ziel und Rahmen klären</small></div>
+                </article>
+                <b aria-hidden="true"></b>
+                <article class="project-flow-core">
+                  <i>02</i>
+                  <div><strong>Koordination</strong><small>NIXORA DIGITAL</small></div>
+                </article>
+                <b aria-hidden="true"></b>
+                <article>
+                  <i>03</i>
+                  <div><strong>Netzwerk</strong><small>Partner, Systeme, Ressourcen</small></div>
+                </article>
+                <b aria-hidden="true"></b>
+                <article class="project-flow-result">
+                  <i>04</i>
+                  <div><strong>Ergebnis</strong><small>Klar umgesetzt und geprüft</small></div>
+                </article>
               </div>
-              <div class="module-card m-web">
-                <span>Anforderungen</span>
-                <strong>Klar strukturiert</strong>
-              </div>
-              <div class="module-card m-auto">
-                <span>Experten</span>
-                <strong>Passend ausgewählt</strong>
-              </div>
-              <div class="module-card m-ai">
-                <span>Koordination</span>
-                <strong>1 Ansprechpartner</strong>
-              </div>
-              <div class="module-card m-crm">
-                <span>Ressourcen</span>
-                <strong>Zentral organisiert</strong>
-              </div>
-              <div class="module-card m-mail">
-                <span>Umsetzung</span>
-                <strong>Bis zum Ergebnis</strong>
+              <div class="project-flow-summary">
+                <span>1 Ansprechpartner</span>
+                <span>Klare Zuständigkeiten</span>
+                <span>Koordinierte Umsetzung</span>
               </div>
             </div>
-            <span class="about-ring"></span>
-            <span class="about-ring ring-two"></span>
-            <span class="about-point p1"></span>
-            <span class="about-point p2"></span>
-            <span class="about-point p3"></span>
           </div>
           <div class="about-content reveal">
             <p class="eyebrow">Über uns</p>
@@ -681,6 +659,6 @@
     </footer>
 
     <div class="chatbot-host" data-chatbot-host aria-live="polite"></div>
-    <script src="script.js"></script>
+    <script src="script.js?v=variant5story2"></script>
   </body>
 </html>
