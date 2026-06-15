@@ -136,15 +136,29 @@ window.addEventListener("scroll", requestHeaderState, { passive: true });
 
 const heroJourney = document.querySelector(".hero");
 let heroJourneyFrame = 0;
+let mobileHeroStoryStarted = false;
 
 const setHeroJourneyState = () => {
   heroJourneyFrame = 0;
   if (!heroJourney) return;
 
   const desktopJourney = window.matchMedia("(min-width: 821px)").matches;
-  if (!desktopJourney || prefersReducedMotion) {
+  if (prefersReducedMotion) {
     heroJourney.style.setProperty("--hero-progress", "1");
     heroJourney.classList.add("story-core", "story-network", "story-lines", "story-result", "is-explained");
+    return;
+  }
+
+  if (!desktopJourney) {
+    heroJourney.style.setProperty("--hero-progress", "1");
+    heroJourney.classList.add("story-core");
+    if (!mobileHeroStoryStarted) {
+      mobileHeroStoryStarted = true;
+      setTimeout(() => heroJourney.classList.add("story-network"), 180);
+      setTimeout(() => heroJourney.classList.add("story-lines"), 520);
+      setTimeout(() => heroJourney.classList.add("story-result"), 720);
+      setTimeout(() => heroJourney.classList.add("is-explained"), 920);
+    }
     return;
   }
 
@@ -153,11 +167,11 @@ const setHeroJourneyState = () => {
   const progress = Math.min(Math.max((window.scrollY - heroTop) / journeyDistance, 0), 1);
 
   heroJourney.style.setProperty("--hero-progress", progress.toFixed(3));
-  heroJourney.classList.toggle("story-core", progress >= 0.1);
-  heroJourney.classList.toggle("story-network", progress >= 0.24);
-  heroJourney.classList.toggle("story-lines", progress >= 0.38);
-  heroJourney.classList.toggle("story-result", progress >= 0.5);
-  heroJourney.classList.toggle("is-explained", progress >= 0.6);
+  heroJourney.classList.add("story-core");
+  heroJourney.classList.toggle("story-network", progress >= 0.17);
+  heroJourney.classList.toggle("story-lines", progress >= 0.36);
+  heroJourney.classList.toggle("story-result", progress >= 0.46);
+  heroJourney.classList.toggle("is-explained", progress >= 0.58);
 };
 
 const requestHeroJourneyState = () => {

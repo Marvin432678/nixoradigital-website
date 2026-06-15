@@ -17,7 +17,7 @@
       if (location.hash) history.replaceState(null, document.title, location.pathname + location.search);
     </script>
     <title>NIXORA DIGITAL - Lösungen, Partner und Projektkoordination</title>
-    <link rel="stylesheet" href="styles.css?v=variant5story2" />
+    <link rel="stylesheet" href="styles.css?v=hubfocus5" />
   </head>
   <body>
     <svg class="process-stream" viewBox="0 0 1440 3200" preserveAspectRatio="none" aria-hidden="true">
@@ -151,26 +151,8 @@
               <small>Ein Ansprechpartner. Ein koordinierter Weg.</small>
             </div>
 
-            <div class="hub-layout">
-              <section class="hub-intake" aria-label="Ausgangspunkt">
-                <span class="hub-label">Ausgangspunkt</span>
-                <div class="hub-intake-stack">
-                  <article class="hub-panel hub-client-card">
-                    <i class="hub-symbol hub-symbol-client" aria-hidden="true"></i>
-                    <div><strong>Unternehmen</strong><small>Ziele & Verantwortung</small></div>
-                  </article>
-                  <article class="hub-panel">
-                    <i class="hub-symbol hub-symbol-requirement" aria-hidden="true"></i>
-                    <div><strong>Anforderung</strong><small>Bedarf & Prioritäten</small></div>
-                  </article>
-                  <article class="hub-panel">
-                    <i class="hub-symbol hub-symbol-project" aria-hidden="true"></i>
-                    <div><strong>Projekt</strong><small>Rahmen & Ergebnis</small></div>
-                  </article>
-                </div>
-              </section>
-
-              <article class="hub-core">
+            <div class="hub-stage">
+              <article class="hub-core hub-stage-core">
                 <span>Zentrale Schnittstelle</span>
                 <strong>NIXORA DIGITAL</strong>
                 <p>Wir strukturieren, vermitteln und koordinieren.</p>
@@ -181,19 +163,35 @@
                 </div>
               </article>
 
-              <section class="hub-network" aria-label="Koordinierte Lösungsbausteine">
-                <span class="hub-label">Lösungsnetzwerk</span>
-                <div class="hub-network-grid">
-                  <article class="hub-panel"><i class="hub-symbol hub-symbol-expert" aria-hidden="true"></i><strong>Experten</strong></article>
-                  <article class="hub-panel"><i class="hub-symbol hub-symbol-system" aria-hidden="true"></i><strong>Systeme</strong></article>
-                  <article class="hub-panel"><i class="hub-symbol hub-symbol-resource" aria-hidden="true"></i><strong>Ressourcen</strong></article>
-                  <article class="hub-panel"><i class="hub-symbol hub-symbol-partner" aria-hidden="true"></i><strong>Partner</strong></article>
-                </div>
-                <article class="hub-panel hub-result">
-                  <i class="hub-symbol hub-symbol-result" aria-hidden="true"></i>
-                  <div><strong>Ergebnis</strong><small>Umgesetzt & geprüft</small></div>
+              <div class="hub-connectors" aria-hidden="true">
+                <i class="connector-requirements"></i>
+                <i class="connector-experts"></i>
+                <i class="connector-systems"></i>
+                <i class="connector-resources"></i>
+                <i class="connector-partners"></i>
+                <i class="connector-result"></i>
+              </div>
+
+              <div class="hub-orbit" aria-label="Koordinierte Anforderungen und Lösungsbausteine">
+                <article class="hub-panel hub-orbit-node node-requirements">
+                  <i class="hub-symbol hub-symbol-requirement" aria-hidden="true"></i><strong>Anforderungen</strong>
                 </article>
-              </section>
+                <article class="hub-panel hub-orbit-node node-experts">
+                  <i class="hub-symbol hub-symbol-expert" aria-hidden="true"></i><strong>Experten</strong>
+                </article>
+                <article class="hub-panel hub-orbit-node node-systems">
+                  <i class="hub-symbol hub-symbol-system" aria-hidden="true"></i><strong>Systeme</strong>
+                </article>
+                <article class="hub-panel hub-orbit-node node-resources">
+                  <i class="hub-symbol hub-symbol-resource" aria-hidden="true"></i><strong>Ressourcen</strong>
+                </article>
+                <article class="hub-panel hub-orbit-node node-partners">
+                  <i class="hub-symbol hub-symbol-partner" aria-hidden="true"></i><strong>Partner</strong>
+                </article>
+                <article class="hub-panel hub-orbit-node node-result">
+                  <i class="hub-symbol hub-symbol-result" aria-hidden="true"></i><strong>Ergebnis</strong>
+                </article>
+              </div>
             </div>
 
             <div class="hub-flow" aria-label="Projektablauf">
@@ -659,6 +657,6 @@
     </footer>
 
     <div class="chatbot-host" data-chatbot-host aria-live="polite"></div>
-    <script src="script.js?v=variant5story2"></script>
+    <script src="script.js?v=hubfocus5"></script>
   </body>
 </html>
