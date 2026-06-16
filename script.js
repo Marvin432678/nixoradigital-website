@@ -12,6 +12,7 @@ const EMAILJS_CONFIG = {
 
 const DIRECT_FORM_ENDPOINT = "https://formsubmit.co/ajax/nixoradigital10@gmail.com";
 const NIXORA_CHAT_WEBHOOK = "https://jul1us.app.n8n.cloud/webhook/3e0e3b0a-d8b6-4c57-ae3a-412f0fe97b60";
+const CHAT_CONTACT_CTA_URL = "https://nixoradigital.de/#kontakt";
 
 const header = document.querySelector("[data-header]");
 const nav = document.querySelector("[data-nav]");
@@ -50,6 +51,63 @@ const enforceChatbotRules = (reply) =>
   FORBIDDEN_SCHEDULING_REPLY_PATTERN.test(reply) || FORBIDDEN_TIME_COMMITMENT_PATTERN.test(reply)
     ? CONTACT_FORM_REPLY
     : reply;
+
+const containsChatContactLink = (value = "") =>
+  /https:\/\/nixoradigital\.de\/#kontakt/i.test(String(value));
+
+const appendLinkifiedText = (target, text) => {
+  const parts = String(text).split(/(https:\/\/nixoradigital\.de\/#kontakt)/gi);
+  parts.forEach((part) => {
+    if (!part) return;
+    if (containsChatContactLink(part)) {
+      const link = document.createElement("a");
+      link.href = CHAT_CONTACT_CTA_URL;
+      link.textContent = CHAT_CONTACT_CTA_URL;
+      target.appendChild(link);
+      return;
+    }
+    target.appendChild(document.createTextNode(part));
+  });
+};
+
+const sanitizeChatReply = (html = "") => {
+  const template = document.createElement("template");
+  template.innerHTML = String(html);
+  const fragment = document.createDocumentFragment();
+  const allowedTags = new Set(["A", "BR", "STRONG", "B", "EM", "I", "SPAN"]);
+
+  const sanitizeNode = (node, target) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      appendLinkifiedText(target, node.textContent || "");
+      return;
+    }
+
+    if (node.nodeType !== Node.ELEMENT_NODE) return;
+
+    if (!allowedTags.has(node.tagName)) {
+      node.childNodes.forEach((child) => sanitizeNode(child, target));
+      return;
+    }
+
+    const element = document.createElement(node.tagName === "B" ? "strong" : node.tagName.toLowerCase());
+
+    if (node.tagName === "A") {
+      const href = node.getAttribute("href") || "";
+      if (!/^https?:\/\//i.test(href) && !href.startsWith("#")) {
+        node.childNodes.forEach((child) => sanitizeNode(child, target));
+        return;
+      }
+      element.href = containsChatContactLink(href) ? CHAT_CONTACT_CTA_URL : href;
+      element.rel = "noopener";
+    }
+
+    node.childNodes.forEach((child) => sanitizeNode(child, element));
+    target.appendChild(element);
+  };
+
+  template.content.childNodes.forEach((node) => sanitizeNode(node, fragment));
+  return fragment;
+};
 
 document.querySelectorAll(".process-stream, .system-lines, .mockup-lines").forEach((graphic) => {
   graphic.pauseAnimations?.();
@@ -646,16 +704,34 @@ const initChatbot = () => {
   const addMessage = (text, type = "bot", options = {}) => {
     const message = document.createElement("div");
     message.className = `chat-message ${type}`;
-    const paragraph = document.createElement("p");
-    paragraph.textContent = text;
-    message.appendChild(paragraph);
+    const bubble = document.createElement("div");
+    bubble.className = "chat-message-bubble";
 
-    if (options.contactLink) {
+    if (type.includes("bot")) {
+      bubble.appendChild(sanitizeChatReply(text));
+    } else {
+      bubble.textContent = text;
+    }
+
+    message.appendChild(bubble);
+
+    if (options.contactLink || containsChatContactLink(text)) {
       const contactLink = document.createElement("a");
-      contactLink.className = "chat-contact-link";
-      contactLink.href = "#kontakt";
-      contactLink.textContent = "Zum Kontaktformular";
-      contactLink.addEventListener("click", () => setOpen(false));
+      contactLink.className = "chat-contact-link chat-contact-cta";
+      contactLink.href = CHAT_CONTACT_CTA_URL;
+      contactLink.textContent = "🚀 Kostenlose Beratung anfragen";
+      contactLink.addEventListener("click", (event) => {
+        const contactSection = document.querySelector("#kontakt");
+        const targetUrl = new URL(CHAT_CONTACT_CTA_URL);
+        const isLocalPreview = ["file:", "http:"].includes(window.location.protocol) &&
+          /^(localhost|127\.0\.0\.1)?$/.test(window.location.hostname);
+
+        if (contactSection && (targetUrl.hostname === window.location.hostname || isLocalPreview)) {
+          event.preventDefault();
+          setOpen(false);
+          contactSection.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+        }
+      });
       message.appendChild(contactLink);
     }
 
